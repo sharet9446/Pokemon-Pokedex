@@ -17,7 +17,7 @@ function Dex() {
             { ...list, uuid: crypto.randomUUID() },
           ]);
         } else {
-          alert("포켓몬들이 이미 모두 선택되었습니다.");
+          alert("모든 포켓몬이 이미 선택되었습니다.");
           return;
         }
       }

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const PokemonChoiceStyle = styled.div`
   background-color: antiquewhite;
-  margin: 20px;
+  margin: 25px;
   padding: 50px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -11,7 +11,7 @@ const PokemonChoiceStyle = styled.div`
 const PokemonChoiceTitle = styled.h1`
   text-align: center;
   color: #ff6347;
-  padding-bottom: 30px;
+  padding-bottom: 40px;
 `;
 
 const PokemonChoiceCardList = styled.div`
@@ -24,24 +24,40 @@ const PokemonChoiceCardList = styled.div`
 const PokemonChoiceCard = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: ${(props) => props.$justifyContent};
   align-items: center;
   background-color: white;
-  width: 160px;
-  height: 160px;
+  width: 170px;
+  height: 170px;
   border: 2px dashed black;
   padding: 10px;
   border-radius: 8px;
   transition: transform 0.2s;
 
   &:hover {
-    transform: scale(1.05);
+    transform: ${(props) => props.$scale};
   }
 `;
 
 const PokemonChoiceCardImg = styled.img`
   width: 120px;
   height: 120px;
+`;
+
+const DeleteButton = styled.button`
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #d9534f;
+  }
 `;
 
 function Dashboard({ setPokemonChoiceList, pokemonChoiceList }) {
@@ -61,7 +77,11 @@ function Dashboard({ setPokemonChoiceList, pokemonChoiceList }) {
           const pokemon = pokemonChoiceList[index];
 
           return (
-            <PokemonChoiceCard key={pokemon ? pokemon.uuid : index}>
+            <PokemonChoiceCard
+              key={pokemon ? pokemon.uuid : index}
+              $justifyContent={pokemon ? "flex-end" : "center"}
+              $scale={pokemon && "scale(1.06)"}
+            >
               <PokemonChoiceCardImg
                 src={
                   pokemon
@@ -70,11 +90,11 @@ function Dashboard({ setPokemonChoiceList, pokemonChoiceList }) {
                 }
                 alt={pokemon ? pokemon.korean_name : `몬스터볼`}
               />
-              {pokemon && <span>{pokemon.korean_name}</span>}
+              {pokemon && <strong>{pokemon.korean_name}</strong>}
               {pokemon && (
-                <button onClick={() => removePokemon(pokemon.uuid)}>
+                <DeleteButton onClick={() => removePokemon(pokemon.uuid)}>
                   삭제
-                </button>
+                </DeleteButton>
               )}
             </PokemonChoiceCard>
           );
