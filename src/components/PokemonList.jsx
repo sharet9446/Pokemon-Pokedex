@@ -1,7 +1,12 @@
-import React from "react";
+import MOCK_DATA from "./MOCK_DATA";
+import PokemonCard from "./PokemonCard";
 
-const PokemonList = () => {
-  return <div>PokemonList</div>;
-};
+function PokemonList({ addPokemon }) {
+  return (
+    <div>
+      <PokemonCard addPokemon={addPokemon} />
+    </div>
+  );
+}
 
 export default PokemonList;
