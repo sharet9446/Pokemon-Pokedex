@@ -4,11 +4,11 @@ import MOCK_DATA from "../components/MOCK_DATA";
 import PokemonList from "../components/PokemonList";
 
 function Dex() {
+  const maxPokemon = 6;
   const [pokemonChoiceList, setPokemonChoiceList] = useState([]);
 
-  const maxPokemon = 6;
-
-  const addPokemon = (id) => {
+  const addPokemon = (e, id) => {
+    e.stopPropagation();
     MOCK_DATA.map((list) => {
       if (list.id === id) {
         if (pokemonChoiceList.length < maxPokemon) {

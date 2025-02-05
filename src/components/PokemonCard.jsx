@@ -1,18 +1,5 @@
-import MOCK_DATA from "./MOCK_DATA";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
-const PokemonCardMain = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  background-color: antiquewhite;
-  padding: 30px;
-  margin: 25px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  gap: 30px;
-`;
 
 const PokemonCardFrame = styled.div`
   display: flex;
@@ -25,6 +12,7 @@ const PokemonCardFrame = styled.div`
   width: 200px;
   transition: transform 0.2s;
   text-align: center;
+  cursor: pointer;
   &:hover {
     transform: scale(1.05);
   }
@@ -40,7 +28,7 @@ const AddButton = styled.button`
   background-color: #ff6347;
   color: white;
   border: none;
-  padding: 8px 12px;
+  padding: 8px 16px;
   margin-top: 10px;
   cursor: pointer;
   border-radius: 5px;
@@ -52,20 +40,29 @@ const AddButton = styled.button`
   }
 `;
 
-function PokemonCard({ addPokemon }) {
+function PokemonCard({ addPokemon, mockData }) {
+  const pokemonNavigate = useNavigate();
+
   return (
-    <PokemonCardMain>
-      {MOCK_DATA.map(({ img_url, korean_name, id }) => (
-        <PokemonCardFrame key={id} onClick={() => {}}>
+    <>
+      {mockData.map(({ img_url, korean_name, id }) => (
+        <PokemonCardFrame
+          key={id}
+          onClick={() => {
+            pokemonNavigate(`/pokemon-detail?id=${id}`, {
+              state: { mockData },
+            });
+          }}
+        >
           <PokemonCardImg src={img_url} alt={korean_name} />
           <div>
             <strong>{korean_name}</strong>
             <p>No. {id}</p>
-            <AddButton onClick={() => addPokemon(id)}>추가</AddButton>
+            <AddButton onClick={(e) => addPokemon(e, id)}>추가</AddButton>
           </div>
         </PokemonCardFrame>
       ))}
-    </PokemonCardMain>
+    </>
   );
 }
 
