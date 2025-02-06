@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import { PokemonContext } from "../contexts/pokemonContext";
 
 const DetailPage = styled.div`
   display: flex;
@@ -56,13 +58,15 @@ const LinkButton = styled.button`
   }
 `;
 
-const PokemonDetail = ({ addPokemon }) => {
+const PokemonDetail = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
 
   const location = useLocation();
   const data = location.state;
   const backNavigate = useNavigate();
+
+  const { addPokemon } = useContext(PokemonContext);
 
   if (!id || !data) {
     return (

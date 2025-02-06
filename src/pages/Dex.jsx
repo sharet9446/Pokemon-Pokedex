@@ -1,9 +1,9 @@
 import PokemonList from "../components/PokemonList";
 
-function Dex({ addPokemon }) {
+function Dex() {
   return (
     <>
-      <PokemonList addPokemon={addPokemon} />
+      <PokemonList />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
-import MOCK_DATA from "./MOCK_DATA";
+import MOCK_DATA from "../contexts/MOCK_DATA";
 
 const PokemonCardMain = styled.div`
   display: flex;
@@ -15,10 +15,10 @@ const PokemonCardMain = styled.div`
   gap: 30px;
 `;
 
-function PokemonList({ addPokemon }) {
+function PokemonList() {
   return (
     <PokemonCardMain>
-      <PokemonCard addPokemon={addPokemon} mockData={MOCK_DATA} />
+      <PokemonCard mockData={MOCK_DATA} />
     </PokemonCardMain>
   );
 }

@@ -3,17 +3,17 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Dex from "./pages/Dex";
 import PokemonDetail from "./components/PokemonDetail";
-import { useState } from "react";
 import Dashboard from "./components/Dashboard";
-import MOCK_DATA from "./components/MOCK_DATA";
+import MOCK_DATA from "./contexts/MOCK_DATA";
+import { PokemonContext } from "./contexts/pokemonContext";
+import { useState } from "react";
 
 function App() {
   const [pokemonChoiceList, setPokemonChoiceList] = useState([]);
 
-  const maxPokemon = 6;
-
   const addPokemon = (e, id) => {
     e.stopPropagation();
+    const maxPokemon = 6;
     const duplicationPokemon = pokemonChoiceList.find(
       (pokemonChoice) => pokemonChoice.id === id
     );
@@ -39,34 +39,19 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          element={
-            <Dashboard
-              pokemonChoiceList={pokemonChoiceList}
-              setPokemonChoiceList={setPokemonChoiceList}
-            />
-          }
-        >
-          <Route
-            path="dex"
-            element={
-              <Dex
-                pokemonChoiceList={pokemonChoiceList}
-                setPokemonChoiceList={setPokemonChoiceList}
-                addPokemon={addPokemon}
-              />
-            }
-          />
-          <Route
-            path="pokemon-detail"
-            element={<PokemonDetail addPokemon={addPokemon} />}
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <PokemonContext.Provider
+      value={{ pokemonChoiceList, setPokemonChoiceList, addPokemon }}
+    >
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route element={<Dashboard />}>
+            <Route path="dex" element={<Dex />} />
+            <Route path="pokemon-detail" element={<PokemonDetail />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </PokemonContext.Provider>
   );
 }
 

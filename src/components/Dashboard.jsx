@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { PokemonContext } from "../contexts/pokemonContext";
 
 const PokemonChoiceStyle = styled.div`
   background-color: antiquewhite;
@@ -64,7 +66,10 @@ const DeleteButton = styled.button`
   }
 `;
 
-function Dashboard({ setPokemonChoiceList, pokemonChoiceList }) {
+function Dashboard() {
+  const { pokemonChoiceList, setPokemonChoiceList } =
+    useContext(PokemonContext);
+
   const maxPokemonSlots = 6;
 
   const pokemonNavigate = useNavigate();

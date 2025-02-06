@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { PokemonContext } from "../contexts/pokemonContext";
 
 const PokemonCardFrame = styled.a`
   display: flex;
@@ -40,8 +42,9 @@ const AddButton = styled.button`
   }
 `;
 
-function PokemonCard({ addPokemon, mockData }) {
+function PokemonCard({ mockData }) {
   const pokemonNavigate = useNavigate();
+  const { addPokemon } = useContext(PokemonContext);
 
   return (
     <>
