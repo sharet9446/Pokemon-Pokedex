@@ -6,6 +6,15 @@ function Dex({ setPokemonChoiceList, pokemonChoiceList }) {
 
   const addPokemon = (e, id) => {
     e.stopPropagation();
+    const duplicationPokemon = pokemonChoiceList.find(
+      (pokemonChoice) => pokemonChoice.id === id
+    );
+    if (duplicationPokemon) {
+      alert(
+        `"${duplicationPokemon.korean_name}"은(는) 이미 선택된 포켓몬입니다.`
+      );
+      return;
+    }
     MOCK_DATA.map((list) => {
       if (list.id === id) {
         if (pokemonChoiceList.length < maxPokemon) {
@@ -13,10 +22,6 @@ function Dex({ setPokemonChoiceList, pokemonChoiceList }) {
             ...pokemonChoiceList,
             { ...list, uuid: crypto.randomUUID() },
           ]);
-          console.log(
-            "🚀 ~ MOCK_DATA.map ~ pokemonChoiceList:",
-            pokemonChoiceList
-          );
         } else {
           alert("모든 포켓몬이 이미 선택되었습니다.");
           return;
