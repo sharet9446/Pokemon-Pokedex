@@ -1,10 +1,73 @@
-import { useState } from "react";
 import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Dex from "./pages/Dex";
+import PokemonDetail from "./components/PokemonDetail";
+import { useState } from "react";
+import Dashboard from "./components/Dashboard";
+import MOCK_DATA from "./components/MOCK_DATA";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [pokemonChoiceList, setPokemonChoiceList] = useState([]);
 
-  return <></>;
+  const maxPokemon = 6;
+
+  const addPokemon = (e, id) => {
+    e.stopPropagation();
+    const duplicationPokemon = pokemonChoiceList.find(
+      (pokemonChoice) => pokemonChoice.id === id
+    );
+    if (duplicationPokemon) {
+      alert(
+        `"${duplicationPokemon.korean_name}"은(는) 이미 선택된 포켓몬입니다.`
+      );
+      return;
+    }
+    MOCK_DATA.map((list) => {
+      if (list.id === id) {
+        if (pokemonChoiceList.length < maxPokemon) {
+          setPokemonChoiceList([
+            ...pokemonChoiceList,
+            { ...list, uuid: crypto.randomUUID() },
+          ]);
+        } else {
+          alert("모든 포켓몬이 이미 선택되었습니다.");
+          return;
+        }
+      }
+    });
+  };
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          element={
+            <Dashboard
+              pokemonChoiceList={pokemonChoiceList}
+              setPokemonChoiceList={setPokemonChoiceList}
+            />
+          }
+        >
+          <Route
+            path="dex"
+            element={
+              <Dex
+                pokemonChoiceList={pokemonChoiceList}
+                setPokemonChoiceList={setPokemonChoiceList}
+                addPokemon={addPokemon}
+              />
+            }
+          />
+          <Route
+            path="pokemon-detail"
+            element={<PokemonDetail addPokemon={addPokemon} />}
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
