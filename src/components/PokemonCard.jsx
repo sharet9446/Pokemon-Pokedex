@@ -1,9 +1,11 @@
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { PokemonContext } from "../contexts/pokemonContext";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { PokemonContext } from "../contexts/PokemonContext";
 
-const PokemonCardFrame = styled.a`
+// ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
+
+const PokemonCardFrame = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,29 +44,27 @@ const AddButton = styled.button`
   }
 `;
 
-function PokemonCard({ mockData }) {
-  const pokemonNavigate = useNavigate();
+// ----------------------------------------------  styled-components 종료 ---------------------------------------------- //
+
+function PokemonCard({ pokemon }) {
   const { addPokemon } = useContext(PokemonContext);
+
+  const pokemonNavigate = useNavigate();
 
   return (
     <>
-      {mockData.map(({ img_url, korean_name, id }) => (
-        <PokemonCardFrame
-          key={id}
-          onClick={() => {
-            pokemonNavigate(`/pokemon-detail?id=${id}`, {
-              state: { pokemonData: mockData },
-            });
-          }}
-        >
-          <PokemonCardImg src={img_url} alt={korean_name} />
-          <div>
-            <strong>{korean_name}</strong>
-            <p>No. {String(id).padStart(3, 0)}</p>
-            <AddButton onClick={(e) => addPokemon(e, id)}>추가</AddButton>
-          </div>
-        </PokemonCardFrame>
-      ))}
+      <PokemonCardFrame
+        onClick={() => {
+          pokemonNavigate(`/pokemon-detail?id=${pokemon.id}`);
+        }}
+      >
+        <PokemonCardImg src={pokemon.img_url} alt={pokemon.korean_name} />
+        <div>
+          <strong>{pokemon.korean_name}</strong>
+          <p>No. {String(pokemon.id).padStart(3, 0)}</p>
+          <AddButton onClick={(e) => addPokemon(e, pokemon.id)}>추가</AddButton>
+        </div>
+      </PokemonCardFrame>
     </>
   );
 }

@@ -2,6 +2,8 @@ import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 import MOCK_DATA from "../contexts/MOCK_DATA";
 
+// ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
+
 const PokemonCardMain = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -15,10 +17,14 @@ const PokemonCardMain = styled.div`
   gap: 30px;
 `;
 
+// ----------------------------------------------  styled-components 종료 ---------------------------------------------- //
+
 function PokemonList() {
   return (
     <PokemonCardMain>
-      <PokemonCard mockData={MOCK_DATA} />
+      {MOCK_DATA.map((pokemon) => (
+        <PokemonCard key={pokemon.id} pokemon={pokemon} />
+      ))}
     </PokemonCardMain>
   );
 }

@@ -1,8 +1,9 @@
-import { useContext } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { PokemonContext } from "../contexts/pokemonContext";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { PokemonContext } from "../contexts/PokemonContext";
 
+// ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
 const PokemonChoiceStyle = styled.div`
   background-color: antiquewhite;
   margin: 25px;
@@ -66,20 +67,14 @@ const DeleteButton = styled.button`
   }
 `;
 
-function Dashboard() {
-  const { pokemonChoiceList, setPokemonChoiceList } =
-    useContext(PokemonContext);
+// ----------------------------------------------  styled-components 종료 ---------------------------------------------- //
 
-  const maxPokemonSlots = 6;
+function Dashboard() {
+  const { pokemonChoiceList, removePokemon } = useContext(PokemonContext);
 
   const pokemonNavigate = useNavigate();
 
-  const removePokemon = (e, id) => {
-    e.stopPropagation();
-    setPokemonChoiceList(
-      pokemonChoiceList.filter((pokemon) => pokemon.uuid !== id)
-    );
-  };
+  const maxPokemonSlots = 6;
 
   return (
     <>
@@ -96,9 +91,7 @@ function Dashboard() {
                 $scale={pokemon && "scale(1.06)"}
                 onClick={() => {
                   pokemon &&
-                    pokemonNavigate(`/pokemon-detail?id=${pokemon.id}`, {
-                      state: { pokemonData: pokemonChoiceList },
-                    });
+                    pokemonNavigate(`/pokemon-detail?id=${pokemon.id}`);
                 }}
               >
                 <PokemonChoiceCardImg

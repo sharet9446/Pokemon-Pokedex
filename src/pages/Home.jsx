@@ -1,5 +1,7 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+// ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
 
 const HomeDivOut = styled.div`
   display: flex;
@@ -70,6 +72,8 @@ const HomeLink = styled(Link)`
       -2px -2px 6px rgba(255, 255, 255, 0.4);
   }
 `;
+
+// ----------------------------------------------  styled-components 종료 ---------------------------------------------- //
 
 function Home() {
   return (

@@ -1,7 +1,10 @@
-import { useContext } from "react";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-import { PokemonContext } from "../contexts/pokemonContext";
+import MOCK_DATA from "../contexts/MOCK_DATA";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useContext } from "react";
+import { PokemonContext } from "../contexts/PokemonContext";
+
+// ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
 
 const DetailPage = styled.div`
   display: flex;
@@ -58,17 +61,21 @@ const LinkButton = styled.button`
   }
 `;
 
+// ----------------------------------------------  styled-components 종료 ---------------------------------------------- //
+
 const PokemonDetail = () => {
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get("id");
-
-  const location = useLocation();
-  const data = location.state;
-  const backNavigate = useNavigate();
-
   const { addPokemon } = useContext(PokemonContext);
 
-  if (!id || !data) {
+  const [searchParams] = useSearchParams();
+  const pokemonId = searchParams.get("id");
+
+  const backNavigate = useNavigate();
+
+  const { img_url, korean_name, id, types, description } = MOCK_DATA.find(
+    (pokemon) => pokemon.id === Number(pokemonId)
+  );
+
+  if (!pokemonId) {
     return (
       <DetailPage>
         <DetailKan>포켓몬 정보를 불러올 수 없습니다.</DetailKan>
@@ -83,16 +90,12 @@ const PokemonDetail = () => {
     );
   }
 
-  const pokemon = data.pokemonData.find((pokemon) => pokemon.id === Number(id));
-
   return (
     <DetailPage>
       <DetailKan>
-        <DetailImg src={pokemon.img_url} alt={pokemon.korean_name} />
+        <DetailImg src={img_url} alt={korean_name} />
         <DetailButtonsDiv>
-          <LinkButton onClick={(e) => addPokemon(e, pokemon.id)}>
-            추가
-          </LinkButton>
+          <LinkButton onClick={(e) => addPokemon(e, id)}>추가</LinkButton>
           <LinkButton
             onClick={() => {
               backNavigate(`/dex`);
@@ -101,9 +104,9 @@ const PokemonDetail = () => {
             돌아가기
           </LinkButton>
         </DetailButtonsDiv>
-        <DetailName>{pokemon.korean_name}</DetailName>
-        <DetailType>타입: {pokemon.types.join(", ")}</DetailType>
-        <DetailDescription>{pokemon.description}</DetailDescription>
+        <DetailName>{korean_name}</DetailName>
+        <DetailType>타입: {types.join(", ")}</DetailType>
+        <DetailDescription>{description}</DetailDescription>
       </DetailKan>
     </DetailPage>
   );
