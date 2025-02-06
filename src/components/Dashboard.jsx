@@ -1,9 +1,10 @@
+import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 
 const PokemonChoiceStyle = styled.div`
   background-color: antiquewhite;
   margin: 25px;
-  padding: 50px;
+  padding: 40px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 `;
@@ -11,7 +12,7 @@ const PokemonChoiceStyle = styled.div`
 const PokemonChoiceTitle = styled.h1`
   text-align: center;
   color: #ff6347;
-  padding-bottom: 40px;
+  padding-bottom: 30px;
 `;
 
 const PokemonChoiceCardList = styled.div`
@@ -70,37 +71,40 @@ function Dashboard({ setPokemonChoiceList, pokemonChoiceList }) {
   };
 
   return (
-    <PokemonChoiceStyle>
-      <PokemonChoiceTitle>나만의 포켓몬</PokemonChoiceTitle>
-      <PokemonChoiceCardList>
-        {Array.from({ length: maxPokemonSlots }).map((_, index) => {
-          const pokemon = pokemonChoiceList[index];
+    <>
+      <PokemonChoiceStyle>
+        <PokemonChoiceTitle>나만의 포켓몬</PokemonChoiceTitle>
+        <PokemonChoiceCardList>
+          {Array.from({ length: maxPokemonSlots }).map((_, index) => {
+            const pokemon = pokemonChoiceList[index];
 
-          return (
-            <PokemonChoiceCard
-              key={pokemon ? pokemon.uuid : index}
-              $justifyContent={pokemon ? "flex-end" : "center"}
-              $scale={pokemon && "scale(1.06)"}
-            >
-              <PokemonChoiceCardImg
-                src={
-                  pokemon
-                    ? pokemon.img_url
-                    : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Pokebola-pokeball-png-0.png/220px-Pokebola-pokeball-png-0.png"
-                }
-                alt={pokemon ? pokemon.korean_name : `몬스터볼`}
-              />
-              {pokemon && <strong>{pokemon.korean_name}</strong>}
-              {pokemon && (
-                <DeleteButton onClick={() => removePokemon(pokemon.uuid)}>
-                  삭제
-                </DeleteButton>
-              )}
-            </PokemonChoiceCard>
-          );
-        })}
-      </PokemonChoiceCardList>
-    </PokemonChoiceStyle>
+            return (
+              <PokemonChoiceCard
+                key={pokemon ? pokemon.uuid : index}
+                $justifyContent={pokemon ? "flex-end" : "center"}
+                $scale={pokemon && "scale(1.06)"}
+              >
+                <PokemonChoiceCardImg
+                  src={
+                    pokemon
+                      ? pokemon.img_url
+                      : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Pokebola-pokeball-png-0.png/220px-Pokebola-pokeball-png-0.png"
+                  }
+                  alt={pokemon ? pokemon.korean_name : `몬스터볼`}
+                />
+                {pokemon && <strong>{pokemon.korean_name}</strong>}
+                {pokemon && (
+                  <DeleteButton onClick={() => removePokemon(pokemon.uuid)}>
+                    삭제
+                  </DeleteButton>
+                )}
+              </PokemonChoiceCard>
+            );
+          })}
+        </PokemonChoiceCardList>
+      </PokemonChoiceStyle>
+      <Outlet />
+    </>
   );
 }
 

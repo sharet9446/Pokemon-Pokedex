@@ -1,11 +1,8 @@
-import { useState } from "react";
-import Dashboard from "../components/Dashboard";
 import MOCK_DATA from "../components/MOCK_DATA";
 import PokemonList from "../components/PokemonList";
 
-function Dex() {
+function Dex({ setPokemonChoiceList, pokemonChoiceList }) {
   const maxPokemon = 6;
-  const [pokemonChoiceList, setPokemonChoiceList] = useState([]);
 
   const addPokemon = (e, id) => {
     e.stopPropagation();
@@ -16,6 +13,10 @@ function Dex() {
             ...pokemonChoiceList,
             { ...list, uuid: crypto.randomUUID() },
           ]);
+          console.log(
+            "🚀 ~ MOCK_DATA.map ~ pokemonChoiceList:",
+            pokemonChoiceList
+          );
         } else {
           alert("모든 포켓몬이 이미 선택되었습니다.");
           return;
@@ -26,10 +27,6 @@ function Dex() {
 
   return (
     <>
-      <Dashboard
-        pokemonChoiceList={pokemonChoiceList}
-        setPokemonChoiceList={setPokemonChoiceList}
-      />
       <PokemonList addPokemon={addPokemon} />
     </>
   );

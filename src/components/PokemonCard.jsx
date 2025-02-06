@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const PokemonCardFrame = styled.div`
+const PokemonCardFrame = styled.a`
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,11 +1,10 @@
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
 const DetailPage = styled.div`
-  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
 `;
 
@@ -18,8 +17,8 @@ const DetailKan = styled.div`
 `;
 
 const DetailImg = styled.img`
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
 `;
 
 const DetailName = styled.h1`
@@ -35,7 +34,7 @@ const DetailDescription = styled.p`
   font-size: 18px;
 `;
 
-const BackLinkButton = styled(Link)`
+const BackLinkButton = styled.button`
   text-decoration: none;
   background-color: #ff6347;
   color: white;
@@ -57,9 +56,28 @@ const PokemonDetail = () => {
   const id = searchParams.get("id");
 
   const location = useLocation();
-  const mockData = location.state.mockData;
+  const mockData = location.state;
 
-  const pokemon = mockData.find((pokemon) => pokemon.id === Number(id));
+  const backNavigate = useNavigate();
+
+  if (!id || !mockData) {
+    return (
+      <DetailPage>
+        <DetailKan>포켓몬 정보를 불러올 수 없습니다.</DetailKan>
+        <BackLinkButton
+          onClick={() => {
+            backNavigate(`/dex`);
+          }}
+        >
+          돌아가기
+        </BackLinkButton>
+      </DetailPage>
+    );
+  }
+
+  const pokemon = mockData.mockData.find(
+    (pokemon) => pokemon.id === Number(id)
+  );
 
   return (
     <DetailPage>
@@ -68,7 +86,13 @@ const PokemonDetail = () => {
         <DetailName>{pokemon.korean_name}</DetailName>
         <DetailType>타입: {pokemon.types.join(", ")}</DetailType>
         <DetailDescription>{pokemon.description}</DetailDescription>
-        <BackLinkButton to={"/dex"}>돌아가기</BackLinkButton>
+        <BackLinkButton
+          onClick={() => {
+            backNavigate(`/dex`);
+          }}
+        >
+          돌아가기
+        </BackLinkButton>
       </DetailKan>
     </DetailPage>
   );
