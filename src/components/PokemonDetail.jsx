@@ -39,7 +39,7 @@ const DetailButtonsDiv = styled.div`
   gap: 20px;
 `;
 
-const BackLinkButton = styled.button`
+const LinkButton = styled.button`
   text-decoration: none;
   background-color: #ff6347;
   color: white;
@@ -68,13 +68,13 @@ const PokemonDetail = ({ addPokemon }) => {
     return (
       <DetailPage>
         <DetailKan>포켓몬 정보를 불러올 수 없습니다.</DetailKan>
-        <BackLinkButton
+        <LinkButton
           onClick={() => {
             backNavigate(`/dex`);
           }}
         >
           돌아가기
-        </BackLinkButton>
+        </LinkButton>
       </DetailPage>
     );
   }
@@ -86,16 +86,16 @@ const PokemonDetail = ({ addPokemon }) => {
       <DetailKan>
         <DetailImg src={pokemon.img_url} alt={pokemon.korean_name} />
         <DetailButtonsDiv>
-          <BackLinkButton onClick={(e) => addPokemon(e, pokemon.id)}>
+          <LinkButton onClick={(e) => addPokemon(e, pokemon.id)}>
             추가
-          </BackLinkButton>
-          <BackLinkButton
+          </LinkButton>
+          <LinkButton
             onClick={() => {
               backNavigate(`/dex`);
             }}
           >
             돌아가기
-          </BackLinkButton>
+          </LinkButton>
         </DetailButtonsDiv>
         <DetailName>{pokemon.korean_name}</DetailName>
         <DetailType>타입: {pokemon.types.join(", ")}</DetailType>

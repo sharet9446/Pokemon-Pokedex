@@ -15,15 +15,15 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 50px;
+  gap: 40px;
 `;
 
 const HomeDivIn = styled.div`
   border-radius: 100px;
   padding: 5px 5px;
   background: linear-gradient(145deg, #f3e2c7, #d6bea5);
-  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1),
-    -6px -6px 12px rgba(255, 255, 255, 0.5);
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1),
+    -6px -6px 14px rgba(255, 255, 255, 0.6);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -33,14 +33,14 @@ const HomeDivIn = styled.div`
 
   &:hover {
     transform: translateY(-2px) scale(1.02);
-    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.15),
-      -6px -6px 14px rgba(255, 255, 255, 0.6);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15),
+      -6px -6px 14px rgba(255, 255, 255, 0.7);
   }
 `;
 
 const PokemonLogo = styled.img`
-  max-width: 500px;
-  width: 100%;
+  min-width: 500px;
+  width: 0%;
   height: auto;
 `;
 

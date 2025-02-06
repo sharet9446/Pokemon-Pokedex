@@ -57,7 +57,7 @@ function PokemonCard({ addPokemon, mockData }) {
           <PokemonCardImg src={img_url} alt={korean_name} />
           <div>
             <strong>{korean_name}</strong>
-            <p>No. {id}</p>
+            <p>No. {String(id).padStart(3, 0)}</p>
             <AddButton onClick={(e) => addPokemon(e, id)}>추가</AddButton>
           </div>
         </PokemonCardFrame>
