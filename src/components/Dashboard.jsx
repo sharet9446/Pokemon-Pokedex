@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const PokemonChoiceStyle = styled.div`
@@ -20,6 +20,9 @@ const PokemonChoiceCardList = styled.div`
   justify-content: space-around;
   flex-wrap: wrap;
   gap: 20px;
+  @media screen and (max-width: 512px) {
+    justify-content: center;
+  }
 `;
 
 const PokemonChoiceCard = styled.div`
@@ -64,7 +67,10 @@ const DeleteButton = styled.button`
 function Dashboard({ setPokemonChoiceList, pokemonChoiceList }) {
   const maxPokemonSlots = 6;
 
-  const removePokemon = (id) => {
+  const pokemonNavigate = useNavigate();
+
+  const removePokemon = (e, id) => {
+    e.stopPropagation();
     setPokemonChoiceList(
       pokemonChoiceList.filter((pokemon) => pokemon.uuid !== id)
     );
@@ -83,6 +89,12 @@ function Dashboard({ setPokemonChoiceList, pokemonChoiceList }) {
                 key={pokemon ? pokemon.uuid : index}
                 $justifyContent={pokemon ? "flex-end" : "center"}
                 $scale={pokemon && "scale(1.06)"}
+                onClick={() => {
+                  pokemon &&
+                    pokemonNavigate(`/pokemon-detail?id=${pokemon.id}`, {
+                      state: { pokemonData: pokemonChoiceList },
+                    });
+                }}
               >
                 <PokemonChoiceCardImg
                   src={
@@ -94,7 +106,7 @@ function Dashboard({ setPokemonChoiceList, pokemonChoiceList }) {
                 />
                 {pokemon && <strong>{pokemon.korean_name}</strong>}
                 {pokemon && (
-                  <DeleteButton onClick={() => removePokemon(pokemon.uuid)}>
+                  <DeleteButton onClick={(e) => removePokemon(e, pokemon.uuid)}>
                     삭제
                   </DeleteButton>
                 )}

@@ -50,7 +50,7 @@ function PokemonCard({ addPokemon, mockData }) {
           key={id}
           onClick={() => {
             pokemonNavigate(`/pokemon-detail?id=${id}`, {
-              state: { mockData },
+              state: { pokemonData: mockData },
             });
           }}
         >
