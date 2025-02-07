@@ -5,7 +5,7 @@ import Dex from "./pages/Dex";
 import PokemonDetail from "./components/PokemonDetail";
 import { useState } from "react";
 import Dashboard from "./components/Dashboard";
-import MOCK_DATA from "./components/MOCK_DATA";
+import MOCK_DATA from "./pages/MOCK_DATA";
 
 function App() {
   const [pokemonChoiceList, setPokemonChoiceList] = useState([]);
@@ -62,7 +62,9 @@ function App() {
           />
           <Route
             path="pokemon-detail"
-            element={<PokemonDetail addPokemon={addPokemon} />}
+            element={
+              <PokemonDetail addPokemon={addPokemon} MOCK_DATA={MOCK_DATA} />
+            }
           />
         </Route>
       </Routes>

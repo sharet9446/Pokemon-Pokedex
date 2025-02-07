@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
-import MOCK_DATA from "./MOCK_DATA";
+import MOCK_DATA from "../pages/MOCK_DATA";
 
 const PokemonCardMain = styled.div`
   display: flex;

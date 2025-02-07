@@ -1,5 +1,61 @@
-import { Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { Outlet, useNavigate } from "react-router-dom";
+
+function Dashboard({ setPokemonChoiceList, pokemonChoiceList }) {
+  const maxPokemonSlots = 6;
+
+  const pokemonNavigate = useNavigate();
+
+  const removePokemon = (e, id) => {
+    e.stopPropagation();
+    setPokemonChoiceList(
+      pokemonChoiceList.filter((pokemon) => pokemon.uuid !== id)
+    );
+  };
+
+  return (
+    <>
+      <PokemonChoiceStyle>
+        <PokemonChoiceTitle>나만의 포켓몬</PokemonChoiceTitle>
+        <PokemonChoiceCardList>
+          {Array.from({ length: maxPokemonSlots }).map((_, index) => {
+            const pokemon = pokemonChoiceList[index];
+
+            return (
+              <PokemonChoiceCard
+                key={pokemon ? pokemon.uuid : index}
+                $justifyContent={pokemon ? "flex-end" : "center"}
+                $scale={pokemon && "scale(1.06)"}
+                onClick={() => {
+                  pokemon &&
+                    pokemonNavigate(`/pokemon-detail?id=${pokemon.id}`);
+                }}
+              >
+                <PokemonChoiceCardImg
+                  src={
+                    pokemon
+                      ? pokemon.img_url
+                      : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Pokebola-pokeball-png-0.png/220px-Pokebola-pokeball-png-0.png"
+                  }
+                  alt={pokemon ? pokemon.korean_name : `몬스터볼`}
+                />
+                {pokemon && <strong>{pokemon.korean_name}</strong>}
+                {pokemon && (
+                  <DeleteButton onClick={(e) => removePokemon(e, pokemon.uuid)}>
+                    삭제
+                  </DeleteButton>
+                )}
+              </PokemonChoiceCard>
+            );
+          })}
+        </PokemonChoiceCardList>
+      </PokemonChoiceStyle>
+      <Outlet />
+    </>
+  );
+}
+
+export default Dashboard;
 
 const PokemonChoiceStyle = styled.div`
   background-color: antiquewhite;
@@ -63,61 +119,3 @@ const DeleteButton = styled.button`
     background-color: #d9534f;
   }
 `;
-
-function Dashboard({ setPokemonChoiceList, pokemonChoiceList }) {
-  const maxPokemonSlots = 6;
-
-  const pokemonNavigate = useNavigate();
-
-  const removePokemon = (e, id) => {
-    e.stopPropagation();
-    setPokemonChoiceList(
-      pokemonChoiceList.filter((pokemon) => pokemon.uuid !== id)
-    );
-  };
-
-  return (
-    <>
-      <PokemonChoiceStyle>
-        <PokemonChoiceTitle>나만의 포켓몬</PokemonChoiceTitle>
-        <PokemonChoiceCardList>
-          {Array.from({ length: maxPokemonSlots }).map((_, index) => {
-            const pokemon = pokemonChoiceList[index];
-
-            return (
-              <PokemonChoiceCard
-                key={pokemon ? pokemon.uuid : index}
-                $justifyContent={pokemon ? "flex-end" : "center"}
-                $scale={pokemon && "scale(1.06)"}
-                onClick={() => {
-                  pokemon &&
-                    pokemonNavigate(`/pokemon-detail?id=${pokemon.id}`, {
-                      state: { pokemonData: pokemonChoiceList },
-                    });
-                }}
-              >
-                <PokemonChoiceCardImg
-                  src={
-                    pokemon
-                      ? pokemon.img_url
-                      : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Pokebola-pokeball-png-0.png/220px-Pokebola-pokeball-png-0.png"
-                  }
-                  alt={pokemon ? pokemon.korean_name : `몬스터볼`}
-                />
-                {pokemon && <strong>{pokemon.korean_name}</strong>}
-                {pokemon && (
-                  <DeleteButton onClick={(e) => removePokemon(e, pokemon.uuid)}>
-                    삭제
-                  </DeleteButton>
-                )}
-              </PokemonChoiceCard>
-            );
-          })}
-        </PokemonChoiceCardList>
-      </PokemonChoiceStyle>
-      <Outlet />
-    </>
-  );
-}
-
-export default Dashboard;

@@ -1,5 +1,62 @@
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import { useNavigate, useSearchParams } from "react-router-dom";
+
+const PokemonDetail = ({ addPokemon, MOCK_DATA }) => {
+  const [searchParams] = useSearchParams();
+  const pokemonSearchId = searchParams.get("id");
+
+  const backNavigate = useNavigate();
+
+  const pokemon =
+    MOCK_DATA.find(
+      (pokemon) =>
+        pokemon.id === Number(pokemonSearchId) ||
+        pokemon.korean_name === pokemonSearchId
+    ) || [];
+
+  if (
+    !(pokemonSearchId > 0 && pokemonSearchId < 152) &&
+    pokemonSearchId !== pokemon.korean_name
+  ) {
+    return (
+      <DetailPage>
+        <DetailKan>포켓몬 정보를 불러올 수 없습니다.</DetailKan>
+        <LinkButton
+          onClick={() => {
+            backNavigate(`/dex`);
+          }}
+        >
+          돌아가기
+        </LinkButton>
+      </DetailPage>
+    );
+  }
+
+  return (
+    <DetailPage>
+      <DetailKan>
+        <DetailImg src={pokemon.img_url} alt={pokemon.korean_name} />
+        <DetailButtonsDiv>
+          <LinkButton onClick={(e) => addPokemon(e, pokemon.id)}>
+            추가
+          </LinkButton>
+          <LinkButton
+            onClick={() => {
+              backNavigate(`/dex`);
+            }}
+          >
+            돌아가기
+          </LinkButton>
+        </DetailButtonsDiv>
+        <DetailName>{pokemon.korean_name}</DetailName>
+        <DetailType>타입: {pokemon.types.join(", ")}</DetailType>
+        <DetailDescription>{pokemon.description}</DetailDescription>
+      </DetailKan>
+    </DetailPage>
+  );
+};
+
+export default PokemonDetail;
 
 const DetailPage = styled.div`
   display: flex;
@@ -55,54 +112,3 @@ const LinkButton = styled.button`
     background-color: #d9534f;
   }
 `;
-
-const PokemonDetail = ({ addPokemon }) => {
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get("id");
-
-  const location = useLocation();
-  const data = location.state;
-  const backNavigate = useNavigate();
-
-  if (!id || !data) {
-    return (
-      <DetailPage>
-        <DetailKan>포켓몬 정보를 불러올 수 없습니다.</DetailKan>
-        <LinkButton
-          onClick={() => {
-            backNavigate(`/dex`);
-          }}
-        >
-          돌아가기
-        </LinkButton>
-      </DetailPage>
-    );
-  }
-
-  const pokemon = data.pokemonData.find((pokemon) => pokemon.id === Number(id));
-
-  return (
-    <DetailPage>
-      <DetailKan>
-        <DetailImg src={pokemon.img_url} alt={pokemon.korean_name} />
-        <DetailButtonsDiv>
-          <LinkButton onClick={(e) => addPokemon(e, pokemon.id)}>
-            추가
-          </LinkButton>
-          <LinkButton
-            onClick={() => {
-              backNavigate(`/dex`);
-            }}
-          >
-            돌아가기
-          </LinkButton>
-        </DetailButtonsDiv>
-        <DetailName>{pokemon.korean_name}</DetailName>
-        <DetailType>타입: {pokemon.types.join(", ")}</DetailType>
-        <DetailDescription>{pokemon.description}</DetailDescription>
-      </DetailKan>
-    </DetailPage>
-  );
-};
-
-export default PokemonDetail;

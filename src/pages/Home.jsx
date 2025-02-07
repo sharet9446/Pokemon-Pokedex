@@ -1,6 +1,21 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+function Home() {
+  return (
+    <HomeDivOut>
+      <Container>
+        <PokemonLogo src="../image/pokemon_logo.svg" alt="Pokemon Logo" />
+        <HomeDivIn>
+          <HomeLink to="/dex">포켓몬 도감 시작하기</HomeLink>
+        </HomeDivIn>
+      </Container>
+    </HomeDivOut>
+  );
+}
+
+export default Home;
+
 const HomeDivOut = styled.div`
   display: flex;
   flex-direction: column;
@@ -70,18 +85,3 @@ const HomeLink = styled(Link)`
       -2px -2px 6px rgba(255, 255, 255, 0.4);
   }
 `;
-
-function Home() {
-  return (
-    <HomeDivOut>
-      <Container>
-        <PokemonLogo src="../image/pokemon_logo.svg" alt="Pokemon Logo" />
-        <HomeDivIn>
-          <HomeLink to="/dex">포켓몬 도감 시작하기</HomeLink>
-        </HomeDivIn>
-      </Container>
-    </HomeDivOut>
-  );
-}
-
-export default Home;

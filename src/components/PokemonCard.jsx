@@ -49,9 +49,7 @@ function PokemonCard({ addPokemon, mockData }) {
         <PokemonCardFrame
           key={id}
           onClick={() => {
-            pokemonNavigate(`/pokemon-detail?id=${id}`, {
-              state: { pokemonData: mockData },
-            });
+            pokemonNavigate(`/pokemon-detail?id=${id}`);
           }}
         >
           <PokemonCardImg src={img_url} alt={korean_name} />
