@@ -72,11 +72,7 @@ const DeleteButton = styled.button`
 // ----------------------------------------------  styled-components 종료 ---------------------------------------------- //
 
 function Dashboard() {
-  const 결과 = useSelector((a) => {
-    console.log("🚀 ~ Dashboard ~ a:", a);
-    return a;
-  });
-  console.log("🚀 ~ Dashboard ~ 결과:", 결과);
+  const 결과 = useSelector((a) => a);
 
   const pokemonNavigate = useNavigate();
 
