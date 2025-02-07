@@ -22,7 +22,8 @@ function Dashboard() {
               <PokemonChoiceCard
                 key={pokemon ? pokemon.uuid : index}
                 $justifyContent={pokemon ? "flex-end" : "center"}
-                $scale={pokemon && "scale(1.06)"}
+                $scale={pokemon && "scale(1.05)"}
+                $cursor={pokemon && "pointer"}
                 onClick={() => {
                   pokemon &&
                     pokemonNavigate(`/pokemon-detail?id=${pokemon.id}`);
@@ -74,7 +75,7 @@ const PokemonChoiceCardList = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 22.5px;
   @media screen and (max-width: 512px) {
     justify-content: center;
   }
@@ -86,11 +87,12 @@ const PokemonChoiceCard = styled.div`
   justify-content: ${(props) => props.$justifyContent};
   align-items: center;
   background-color: white;
-  width: 170px;
-  height: 170px;
+  width: 172.5px;
+  height: 172.5px;
   border: 2px dashed black;
   padding: 10px;
   border-radius: 8px;
+  cursor: ${(props) => props.$cursor};
   transition: transform 0.2s;
 
   &:hover {
@@ -99,8 +101,8 @@ const PokemonChoiceCard = styled.div`
 `;
 
 const PokemonChoiceCardImg = styled.img`
-  width: 120px;
-  height: 120px;
+  width: 122.5px;
+  height: 122.5px;
 `;
 
 const DeleteButton = styled.button`
