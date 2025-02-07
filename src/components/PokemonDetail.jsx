@@ -67,15 +67,13 @@ const PokemonDetail = () => {
   const { addPokemon } = useContext(PokemonContext);
 
   const [searchParams] = useSearchParams();
-  const pokemonId = searchParams.get("id");
+  const pokemonId = Number(searchParams.get("id"));
 
   const backNavigate = useNavigate();
 
-  const { img_url, korean_name, id, types, description } = MOCK_DATA.find(
-    (pokemon) => pokemon.id === Number(pokemonId)
-  );
+  const pokemon = MOCK_DATA.find((pokemon) => pokemon.id === pokemonId);
 
-  if (!pokemonId) {
+  if (!pokemon) {
     return (
       <DetailPage>
         <DetailKan>포켓몬 정보를 불러올 수 없습니다.</DetailKan>
@@ -93,9 +91,11 @@ const PokemonDetail = () => {
   return (
     <DetailPage>
       <DetailKan>
-        <DetailImg src={img_url} alt={korean_name} />
+        <DetailImg src={pokemon.img_url} alt={pokemon.korean_name} />
         <DetailButtonsDiv>
-          <LinkButton onClick={(e) => addPokemon(e, id)}>추가</LinkButton>
+          <LinkButton onClick={(e) => addPokemon(e, pokemon.id)}>
+            추가
+          </LinkButton>
           <LinkButton
             onClick={() => {
               backNavigate(`/dex`);
@@ -104,9 +104,9 @@ const PokemonDetail = () => {
             돌아가기
           </LinkButton>
         </DetailButtonsDiv>
-        <DetailName>{korean_name}</DetailName>
-        <DetailType>타입: {types.join(", ")}</DetailType>
-        <DetailDescription>{description}</DetailDescription>
+        <DetailName>{pokemon.korean_name}</DetailName>
+        <DetailType>타입: {pokemon.types.join(", ")}</DetailType>
+        <DetailDescription>{pokemon.description}</DetailDescription>
       </DetailKan>
     </DetailPage>
   );
