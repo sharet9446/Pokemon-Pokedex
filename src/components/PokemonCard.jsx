@@ -1,7 +1,38 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-// import { useContext } from "react";
-// import { PokemonContext } from "../contexts/PokemonContext";
+import { addPokemon } from "../redux/pokemonSlice";
+import { useDispatch } from "react-redux";
+
+function PokemonCard({ pokemon }) {
+  const dispatch = useDispatch();
+  const pokemonNavigate = useNavigate();
+
+  return (
+    <>
+      <PokemonCardFrame
+        onClick={() => {
+          pokemonNavigate(`/pokemon-detail?id=${pokemon.id}`);
+        }}
+      >
+        <PokemonCardImg src={pokemon.img_url} alt={pokemon.korean_name} />
+        <div>
+          <strong>{pokemon.korean_name}</strong>
+          <p>No. {String(pokemon.id).padStart(3, 0)}</p>
+          <AddButton
+            onClick={(e) => {
+              e.stopPropagation();
+              dispatch(addPokemon(pokemon.id));
+            }}
+          >
+            추가
+          </AddButton>
+        </div>
+      </PokemonCardFrame>
+    </>
+  );
+}
+
+export default PokemonCard;
 
 // ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
 
@@ -45,28 +76,3 @@ const AddButton = styled.button`
 `;
 
 // ----------------------------------------------  styled-components 종료 ---------------------------------------------- //
-
-function PokemonCard({ pokemon }) {
-  // const { addPokemon } = useContext(PokemonContext);
-
-  const pokemonNavigate = useNavigate();
-
-  return (
-    <>
-      <PokemonCardFrame
-        onClick={() => {
-          pokemonNavigate(`/pokemon-detail?id=${pokemon.id}`);
-        }}
-      >
-        <PokemonCardImg src={pokemon.img_url} alt={pokemon.korean_name} />
-        <div>
-          <strong>{pokemon.korean_name}</strong>
-          <p>No. {String(pokemon.id).padStart(3, 0)}</p>
-          <AddButton onClick={(e) => addPokemon(e, pokemon.id)}>추가</AddButton>
-        </div>
-      </PokemonCardFrame>
-    </>
-  );
-}
-
-export default PokemonCard;

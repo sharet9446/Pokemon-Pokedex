@@ -1,8 +1,61 @@
 import styled from "styled-components";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-// import { useContext } from "react";
-// import { PokemonContext } from "../contexts/PokemonContext";
+import { useDispatch, useSelector } from "react-redux";
+import { removePokemon } from "../redux/pokemonSlice";
+
+function Dashboard() {
+  const { pokemonChoiceList } = useSelector((a) => a.pokemon);
+  const dispatch = useDispatch();
+  const pokemonNavigate = useNavigate();
+  const maxPokemonSlots = 6;
+
+  return (
+    <>
+      <PokemonChoiceStyle>
+        <PokemonChoiceTitle>나만의 포켓몬</PokemonChoiceTitle>
+        <PokemonChoiceCardList>
+          {Array.from({ length: maxPokemonSlots }).map((_, index) => {
+            const pokemon = pokemonChoiceList[index];
+            return (
+              <PokemonChoiceCard
+                key={pokemon ? pokemon.uuid : index}
+                $justifyContent={pokemon ? "flex-end" : "center"}
+                $scale={pokemon && "scale(1.06)"}
+                onClick={() => {
+                  pokemon &&
+                    pokemonNavigate(`/pokemon-detail?id=${pokemon.id}`);
+                }}
+              >
+                <PokemonChoiceCardImg
+                  src={
+                    pokemon
+                      ? pokemon.img_url
+                      : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Pokebola-pokeball-png-0.png/220px-Pokebola-pokeball-png-0.png"
+                  }
+                  alt={pokemon ? pokemon.korean_name : `몬스터볼`}
+                />
+                {pokemon && <strong>{pokemon.korean_name}</strong>}
+                {pokemon && (
+                  <DeleteButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      dispatch(removePokemon(pokemon.uuid));
+                    }}
+                  >
+                    삭제
+                  </DeleteButton>
+                )}
+              </PokemonChoiceCard>
+            );
+          })}
+        </PokemonChoiceCardList>
+      </PokemonChoiceStyle>
+      <Outlet />
+    </>
+  );
+}
+
+export default Dashboard;
 
 // ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
 
@@ -24,7 +77,7 @@ const PokemonChoiceCardList = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 22.5px;
   @media screen and (max-width: 512px) {
     justify-content: center;
   }
@@ -36,8 +89,8 @@ const PokemonChoiceCard = styled.div`
   justify-content: ${(props) => props.$justifyContent};
   align-items: center;
   background-color: white;
-  width: 170px;
-  height: 170px;
+  width: 172.5px;
+  height: 172.5px;
   border: 2px dashed black;
   padding: 10px;
   border-radius: 8px;
@@ -49,8 +102,8 @@ const PokemonChoiceCard = styled.div`
 `;
 
 const PokemonChoiceCardImg = styled.img`
-  width: 120px;
-  height: 120px;
+  width: 122.5px;
+  height: 122.5px;
 `;
 
 const DeleteButton = styled.button`
@@ -70,54 +123,3 @@ const DeleteButton = styled.button`
 `;
 
 // ----------------------------------------------  styled-components 종료 ---------------------------------------------- //
-
-function Dashboard() {
-  const 결과 = useSelector((a) => a);
-
-  const pokemonNavigate = useNavigate();
-
-  const maxPokemonSlots = 6;
-
-  return (
-    <>
-      <PokemonChoiceStyle>
-        <PokemonChoiceTitle>나만의 포켓몬</PokemonChoiceTitle>
-        <PokemonChoiceCardList>
-          {Array.from({ length: maxPokemonSlots }).map((_, index) => {
-            const pokemon = pokemonChoiceList[index];
-
-            return (
-              <PokemonChoiceCard
-                key={pokemon ? pokemon.uuid : index}
-                $justifyContent={pokemon ? "flex-end" : "center"}
-                $scale={pokemon && "scale(1.06)"}
-                onClick={() => {
-                  pokemon &&
-                    pokemonNavigate(`/pokemon-detail?id=${pokemon.id}`);
-                }}
-              >
-                <PokemonChoiceCardImg
-                  src={
-                    pokemon
-                      ? pokemon.img_url
-                      : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Pokebola-pokeball-png-0.png/220px-Pokebola-pokeball-png-0.png"
-                  }
-                  alt={pokemon ? pokemon.korean_name : `몬스터볼`}
-                />
-                {pokemon && <strong>{pokemon.korean_name}</strong>}
-                {pokemon && (
-                  <DeleteButton onClick={(e) => removePokemon(e, pokemon.uuid)}>
-                    삭제
-                  </DeleteButton>
-                )}
-              </PokemonChoiceCard>
-            );
-          })}
-        </PokemonChoiceCardList>
-      </PokemonChoiceStyle>
-      <Outlet />
-    </>
-  );
-}
-
-export default Dashboard;

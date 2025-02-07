@@ -13,9 +13,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route element={<Dashboard />} />
-          <Route path="dex" element={<Dex />} />
-          <Route path="pokemon-detail" element={<PokemonDetail />} />
+          <Route element={<Dashboard />}>
+            <Route path="dex" element={<Dex />} />
+            <Route path="pokemon-detail" element={<PokemonDetail />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </Provider>
