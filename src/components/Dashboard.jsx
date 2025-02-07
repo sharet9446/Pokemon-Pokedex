@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { PokemonContext } from "../contexts/PokemonContext";
 
 // ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
+
 const PokemonChoiceStyle = styled.div`
   background-color: antiquewhite;
   margin: 25px;

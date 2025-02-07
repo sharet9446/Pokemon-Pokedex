@@ -4,7 +4,7 @@ import MOCK_DATA from "../contexts/MOCK_DATA";
 
 // ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
 
-const PokemonCardMain = styled.div`
+const PokemonListMain = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -21,11 +21,11 @@ const PokemonCardMain = styled.div`
 
 function PokemonList() {
   return (
-    <PokemonCardMain>
+    <PokemonListMain>
       {MOCK_DATA.map((pokemon) => (
         <PokemonCard key={pokemon.id} pokemon={pokemon} />
       ))}
-    </PokemonCardMain>
+    </PokemonListMain>
   );
 }
 

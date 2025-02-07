@@ -15,10 +15,12 @@ export function PokemonProvider({ children }) {
   // 포켓몬 추가 함수
   const addPokemon = (e, id) => {
     e.stopPropagation();
+
     // 선택된 포켓몬 중복 확인
     const duplicationPokemon = pokemonChoiceList.find(
       (pokemonChoice) => pokemonChoice.id === id
     );
+
     if (duplicationPokemon) {
       alert(
         `"${duplicationPokemon.korean_name}"은(는) 이미 선택된 포켓몬입니다.`
