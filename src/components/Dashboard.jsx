@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { PokemonContext } from "../contexts/PokemonContext";
+import { useSelector } from "react-redux";
+// import { useContext } from "react";
+// import { PokemonContext } from "../contexts/PokemonContext";
 
 // ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
 
@@ -71,7 +72,11 @@ const DeleteButton = styled.button`
 // ----------------------------------------------  styled-components 종료 ---------------------------------------------- //
 
 function Dashboard() {
-  const { pokemonChoiceList, removePokemon } = useContext(PokemonContext);
+  const 결과 = useSelector((a) => {
+    console.log("🚀 ~ Dashboard ~ a:", a);
+    return a;
+  });
+  console.log("🚀 ~ Dashboard ~ 결과:", 결과);
 
   const pokemonNavigate = useNavigate();
 

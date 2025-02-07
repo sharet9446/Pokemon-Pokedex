@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import MOCK_DATA from "../contexts/MOCK_DATA";
+import MOCK_DATA from "../pages/MOCK_DATA";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useContext } from "react";
-import { PokemonContext } from "../contexts/PokemonContext";
+// import { useContext } from "react";
+// import { PokemonContext } from "../contexts/PokemonContext";
 
 // ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
 
@@ -64,7 +64,7 @@ const LinkButton = styled.button`
 // ----------------------------------------------  styled-components 종료 ---------------------------------------------- //
 
 const PokemonDetail = () => {
-  const { addPokemon } = useContext(PokemonContext);
+  // const { addPokemon } = useContext(PokemonContext);
 
   const [searchParams] = useSearchParams();
   const pokemonId = searchParams.get("id");

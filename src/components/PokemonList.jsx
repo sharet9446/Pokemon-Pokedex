@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
-import MOCK_DATA from "../contexts/MOCK_DATA";
+import MOCK_DATA from "../pages/MOCK_DATA";
 
 // ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
 

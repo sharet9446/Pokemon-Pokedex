@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { PokemonContext } from "../contexts/PokemonContext";
+// import { useContext } from "react";
+// import { PokemonContext } from "../contexts/PokemonContext";
 
 // ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
 
@@ -47,7 +47,7 @@ const AddButton = styled.button`
 // ----------------------------------------------  styled-components 종료 ---------------------------------------------- //
 
 function PokemonCard({ pokemon }) {
-  const { addPokemon } = useContext(PokemonContext);
+  // const { addPokemon } = useContext(PokemonContext);
 
   const pokemonNavigate = useNavigate();
 
