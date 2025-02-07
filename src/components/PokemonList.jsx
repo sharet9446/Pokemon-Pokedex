@@ -2,6 +2,16 @@ import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 import MOCK_DATA from "../pages/MOCK_DATA";
 
+function PokemonList({ addPokemon }) {
+  return (
+    <PokemonCardMain>
+      <PokemonCard addPokemon={addPokemon} mockData={MOCK_DATA} />
+    </PokemonCardMain>
+  );
+}
+
+export default PokemonList;
+
 const PokemonCardMain = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -14,13 +24,3 @@ const PokemonCardMain = styled.div`
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   gap: 30px;
 `;
-
-function PokemonList({ addPokemon }) {
-  return (
-    <PokemonCardMain>
-      <PokemonCard addPokemon={addPokemon} mockData={MOCK_DATA} />
-    </PokemonCardMain>
-  );
-}
-
-export default PokemonList;
