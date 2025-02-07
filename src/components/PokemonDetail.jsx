@@ -21,9 +21,7 @@ const PokemonDetail = ({ addPokemon, MOCK_DATA }) => {
     ) || null;
 
   useEffect(() => {
-    console.log(location.pathname);
     if (pokemon?.img_url) {
-      console.log(pokemon.img_url);
       const img = new Image();
       img.src = pokemon.img_url;
     }
