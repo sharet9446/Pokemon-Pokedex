@@ -67,13 +67,21 @@ const PokemonDetail = () => {
   const { addPokemon } = useContext(PokemonContext);
 
   const [searchParams] = useSearchParams();
-  const pokemonId = Number(searchParams.get("id"));
+  const pokemonSearchId = searchParams.get("id");
 
   const backNavigate = useNavigate();
 
-  const pokemon = MOCK_DATA.find((pokemon) => pokemon.id === pokemonId);
+  const pokemon =
+    MOCK_DATA.find(
+      (pokemon) =>
+        pokemon.id === Number(pokemonSearchId) ||
+        pokemon.korean_name === pokemonSearchId
+    ) || [];
 
-  if (!pokemon) {
+  if (
+    !(pokemonSearchId > 0 && pokemonSearchId < 152) &&
+    pokemonSearchId !== pokemon.korean_name
+  ) {
     return (
       <DetailPage>
         <DetailKan>포켓몬 정보를 불러올 수 없습니다.</DetailKan>
