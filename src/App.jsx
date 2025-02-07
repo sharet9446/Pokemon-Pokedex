@@ -50,16 +50,7 @@ function App() {
             />
           }
         >
-          <Route
-            path="dex"
-            element={
-              <Dex
-                pokemonChoiceList={pokemonChoiceList}
-                setPokemonChoiceList={setPokemonChoiceList}
-                addPokemon={addPokemon}
-              />
-            }
-          />
+          <Route path="dex" element={<Dex addPokemon={addPokemon} />} />
           <Route
             path="pokemon-detail"
             element={
