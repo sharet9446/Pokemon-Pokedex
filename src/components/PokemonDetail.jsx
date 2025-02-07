@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import MOCK_DATA from "../pages/MOCK_DATA";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addPokemon } from "../redux/pokemonSlice";
 import { useEffect } from "react";
@@ -10,6 +15,7 @@ const PokemonDetail = () => {
   const [searchParams] = useSearchParams();
   const pokemonSearchId = searchParams.get("id");
   const backNavigate = useNavigate();
+  const location = useLocation();
 
   const pokemon =
     MOCK_DATA.find(
