@@ -1,6 +1,21 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+function Home() {
+  return (
+    <HomeDivOut>
+      <Container>
+        <PokemonLogo src="../image/pokemon_logo.svg" alt="Pokemon Logo" />
+        <HomeDivIn>
+          <HomeLink to="/dex">포켓몬 도감 시작하기</HomeLink>
+        </HomeDivIn>
+      </Container>
+    </HomeDivOut>
+  );
+}
+
+export default Home;
+
 // ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
 
 const HomeDivOut = styled.div`
@@ -74,18 +89,3 @@ const HomeLink = styled(Link)`
 `;
 
 // ----------------------------------------------  styled-components 종료 ---------------------------------------------- //
-
-function Home() {
-  return (
-    <HomeDivOut>
-      <Container>
-        <PokemonLogo src="../image/pokemon_logo.svg" alt="Pokemon Logo" />
-        <HomeDivIn>
-          <HomeLink to="/dex">포켓몬 도감 시작하기</HomeLink>
-        </HomeDivIn>
-      </Container>
-    </HomeDivOut>
-  );
-}
-
-export default Home;

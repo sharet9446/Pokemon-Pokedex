@@ -2,6 +2,18 @@ import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 import MOCK_DATA from "../contexts/MOCK_DATA";
 
+function PokemonList() {
+  return (
+    <PokemonListMain>
+      {MOCK_DATA.map((pokemon) => (
+        <PokemonCard key={pokemon.id} pokemon={pokemon} />
+      ))}
+    </PokemonListMain>
+  );
+}
+
+export default PokemonList;
+
 // ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
 
 const PokemonListMain = styled.div`
@@ -18,15 +30,3 @@ const PokemonListMain = styled.div`
 `;
 
 // ----------------------------------------------  styled-components 종료 ---------------------------------------------- //
-
-function PokemonList() {
-  return (
-    <PokemonListMain>
-      {MOCK_DATA.map((pokemon) => (
-        <PokemonCard key={pokemon.id} pokemon={pokemon} />
-      ))}
-    </PokemonListMain>
-  );
-}
-
-export default PokemonList;

@@ -4,65 +4,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useContext } from "react";
 import { PokemonContext } from "../contexts/PokemonContext";
 
-// ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
-
-const DetailPage = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const DetailKan = styled.div`
-  display: flex;
-  text-align: center;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const DetailImg = styled.img`
-  width: 200px;
-  height: 200px;
-`;
-
-const DetailName = styled.h1`
-  color: red;
-`;
-
-const DetailType = styled.p`
-  font-size: 20px;
-  margin: 10px;
-`;
-
-const DetailDescription = styled.p`
-  font-size: 18px;
-`;
-
-const DetailButtonsDiv = styled.div`
-  display: flex;
-  gap: 20px;
-`;
-
-const LinkButton = styled.button`
-  text-decoration: none;
-  background-color: #ff6347;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  margin-top: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 14px;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: #d9534f;
-  }
-`;
-
-// ----------------------------------------------  styled-components 종료 ---------------------------------------------- //
-
 const PokemonDetail = () => {
   const { addPokemon } = useContext(PokemonContext);
 
@@ -121,3 +62,62 @@ const PokemonDetail = () => {
 };
 
 export default PokemonDetail;
+
+// ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
+
+const DetailPage = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const DetailKan = styled.div`
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const DetailImg = styled.img`
+  width: 200px;
+  height: 200px;
+`;
+
+const DetailName = styled.h1`
+  color: red;
+`;
+
+const DetailType = styled.p`
+  font-size: 20px;
+  margin: 10px;
+`;
+
+const DetailDescription = styled.p`
+  font-size: 18px;
+`;
+
+const DetailButtonsDiv = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+
+const LinkButton = styled.button`
+  text-decoration: none;
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #d9534f;
+  }
+`;
+
+// ----------------------------------------------  styled-components 종료 ---------------------------------------------- //
