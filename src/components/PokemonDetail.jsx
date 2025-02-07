@@ -1,59 +1,85 @@
 import styled from "styled-components";
 import MOCK_DATA from "../contexts/MOCK_DATA";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useContext } from "react";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
+import { useContext, useEffect } from "react";
 import { PokemonContext } from "../contexts/PokemonContext";
 
 const PokemonDetail = () => {
   const { addPokemon } = useContext(PokemonContext);
-
   const [searchParams] = useSearchParams();
   const pokemonSearchId = searchParams.get("id");
-
   const backNavigate = useNavigate();
+  const location = useLocation();
 
   const pokemon =
     MOCK_DATA.find(
       (pokemon) =>
         pokemon.id === Number(pokemonSearchId) ||
         pokemon.korean_name === pokemonSearchId
-    ) || [];
+    ) || null;
 
-  if (
-    !(pokemonSearchId > 0 && pokemonSearchId < 152) &&
-    pokemonSearchId !== pokemon.korean_name
-  ) {
+  useEffect(() => {
+    if (pokemon?.img_url) {
+      const img = new Image();
+      img.src = pokemon.img_url;
+    }
+  }, [location.pathname, pokemon]);
+
+  if (!pokemon) {
     return (
       <DetailPage>
         <DetailKan>포켓몬 정보를 불러올 수 없습니다.</DetailKan>
-        <LinkButton
-          onClick={() => {
-            backNavigate(`/dex`);
-          }}
-        >
+        <DetailButton onClick={() => backNavigate("/dex")}>
           돌아가기
-        </LinkButton>
+        </DetailButton>
       </DetailPage>
     );
   }
 
   return (
     <DetailPage>
+      <DetailNavDiv>
+        {pokemon.id > 1 && (
+          <>
+            <DetailNavLink to={`?id=${pokemon.id - 1}`}>◀ 이전</DetailNavLink>
+            <DetailNavInfo>
+              {String(pokemon.id - 1).padStart(3, "0")}{" "}
+              {MOCK_DATA[pokemon.id - 2]?.korean_name || ""}
+            </DetailNavInfo>
+          </>
+        )}
+        {pokemon.id < MOCK_DATA.length && (
+          <>
+            <DetailNavInfo>
+              {String(pokemon.id + 1).padStart(3, "0")}{" "}
+              {MOCK_DATA[pokemon.id]?.korean_name || ""}
+            </DetailNavInfo>
+            <DetailNavLink to={`?id=${pokemon.id + 1}`}>다음 ▶</DetailNavLink>
+          </>
+        )}
+      </DetailNavDiv>
+
       <DetailKan>
         <DetailImg src={pokemon.img_url} alt={pokemon.korean_name} />
         <DetailButtonsDiv>
-          <LinkButton onClick={(e) => addPokemon(e, pokemon.id)}>
+          <DetailButton onClick={(e) => addPokemon(e, pokemon.id)}>
             추가
-          </LinkButton>
-          <LinkButton
-            onClick={() => {
-              backNavigate(`/dex`);
-            }}
-          >
+          </DetailButton>
+          <DetailButton onClick={() => backNavigate("/dex")}>
             돌아가기
-          </LinkButton>
+          </DetailButton>
         </DetailButtonsDiv>
-        <DetailName>{pokemon.korean_name}</DetailName>
+        <h2>
+          <DetailNumber>
+            No. {String(pokemon.id).padStart(3, "0")}{" "}
+          </DetailNumber>
+          <DetailName>{pokemon.korean_name}</DetailName>
+        </h2>
         <DetailType>타입: {pokemon.types.join(", ")}</DetailType>
         <DetailDescription>{pokemon.description}</DetailDescription>
       </DetailKan>
@@ -72,6 +98,31 @@ const DetailPage = styled.div`
   align-items: center;
 `;
 
+const DetailNavDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 15px;
+`;
+
+const DetailNavLink = styled(Link)`
+  text-decoration: none;
+  font-size: 16px;
+  color: blue;
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const DetailNavInfo = styled.span`
+  font-size: 14px;
+  color: gray;
+  font-weight: bold;
+`;
+
 const DetailKan = styled.div`
   display: flex;
   text-align: center;
@@ -85,7 +136,15 @@ const DetailImg = styled.img`
   height: 200px;
 `;
 
-const DetailName = styled.h1`
+const DetailNumber = styled.span`
+  font-size: 14px;
+  color: gray;
+  margin-right: 8px;
+`;
+
+const DetailName = styled.span`
+  font-size: 24px;
+  font-weight: bold;
   color: red;
 `;
 
@@ -103,7 +162,7 @@ const DetailButtonsDiv = styled.div`
   gap: 20px;
 `;
 
-const LinkButton = styled.button`
+const DetailButton = styled.button`
   text-decoration: none;
   background-color: #ff6347;
   color: white;
