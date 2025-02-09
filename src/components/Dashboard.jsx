@@ -4,18 +4,17 @@ import { useContext } from "react";
 import { PokemonContext } from "../contexts/PokemonContext";
 
 function Dashboard() {
-  const { pokemonChoiceList, removePokemon } = useContext(PokemonContext);
+  const { pokemonChoiceList, removePokemon, maxPokemon } =
+    useContext(PokemonContext);
 
   const pokemonNavigate = useNavigate();
-
-  const maxPokemonSlots = 6;
 
   return (
     <>
       <PokemonChoiceStyle>
         <PokemonChoiceTitle>나만의 포켓몬</PokemonChoiceTitle>
         <PokemonChoiceCardList>
-          {Array.from({ length: maxPokemonSlots }).map((_, index) => {
+          {Array.from({ length: maxPokemon }).map((_, index) => {
             const pokemon = pokemonChoiceList[index];
 
             return (

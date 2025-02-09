@@ -31,7 +31,7 @@ export function PokemonProvider({ children }) {
         autoClose: 3000,
       });
     } else {
-      toast.error("포켓몬은 최대 6마리까지 선택 가능합니다.", {
+      toast.error(`포켓몬은 최대 ${maxPokemon}마리까지 선택 가능합니다.`, {
         position: "top-center",
         autoClose: 3000,
       });
@@ -52,6 +52,7 @@ export function PokemonProvider({ children }) {
     <PokemonContext.Provider
       value={{
         pokemonChoiceList,
+        maxPokemon,
         addPokemon,
         removePokemon,
       }}
