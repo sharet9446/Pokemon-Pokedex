@@ -87,6 +87,8 @@ const PokemonDetail = ({ addPokemon }) => {
 
 export default PokemonDetail;
 
+// ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
+
 const DetailPage = styled.div`
   display: flex;
   flex-direction: column;
@@ -174,3 +176,5 @@ const DetailButton = styled.button`
     background-color: #d9534f;
   }
 `;
+
+// ----------------------------------------------  styled-components 종료 ---------------------------------------------- //

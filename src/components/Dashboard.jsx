@@ -52,6 +52,8 @@ function Dashboard({ pokemonChoiceList, removePokemon }) {
 
 export default Dashboard;
 
+// ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
+
 const PokemonChoiceStyle = styled.div`
   background-color: antiquewhite;
   margin: 22.5px 25px;
@@ -70,7 +72,7 @@ const PokemonChoiceCardList = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 22.5px;
   @media screen and (max-width: 512px) {
     justify-content: center;
   }
@@ -117,3 +119,5 @@ const DeleteButton = styled.button`
     background-color: #d9534f;
   }
 `;
+
+// ----------------------------------------------  styled-components 종료 ---------------------------------------------- //

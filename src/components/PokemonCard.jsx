@@ -30,6 +30,8 @@ function PokemonCard({ addPokemon, mockData }) {
 
 export default PokemonCard;
 
+// ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
+
 const PokemonCardFrame = styled.a`
   display: flex;
   flex-direction: column;
@@ -68,3 +70,5 @@ const AddButton = styled.button`
     background-color: #d9534f;
   }
 `;
+
+// ----------------------------------------------  styled-components 종료 ---------------------------------------------- //

@@ -12,6 +12,8 @@ function PokemonList({ addPokemon }) {
 
 export default PokemonList;
 
+// ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
+
 const PokemonCardMain = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -24,3 +26,5 @@ const PokemonCardMain = styled.div`
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   gap: 30px;
 `;
+
+// ----------------------------------------------  styled-components 종료 ---------------------------------------------- //
