@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 
 const initialState = {
   pokemonChoiceList: [],
+  maxPokemon: 6,
 };
 
 const pokemonSlice = createSlice({
@@ -10,36 +11,31 @@ const pokemonSlice = createSlice({
   initialState,
   reducers: {
     addPokemon: (state, action) => {
-      const fullPokemonListToast = () => {
-        toast.error("포켓몬은 최대 6마리까지 선택 가능합니다.", {
-          position: "top-center",
-          autoClose: 3000,
-        });
-      };
-
-      const duplicatePokemonList = () => {
+      if (state.pokemonChoiceList.some((p) => p.id === action.payload.id)) {
         toast.info(
-          `"${duplicationPokemon.korean_name}"은(는) 이미 선택된 포켓몬입니다.`,
+          `"${action.payload.korean_name}"은(는) 이미 선택된 포켓몬입니다.`,
           {
             position: "top-center",
             autoClose: 3000,
           }
         );
-      };
-
-      const duplicationPokemon = state.pokemonChoiceList.find(
-        (pokemonChoice) => pokemonChoice.id === action.payload.id
-      );
-
-      if (duplicationPokemon) {
-        duplicatePokemonList();
         return;
       }
 
-      if (state.pokemonChoiceList.length < 6) {
+      if (state.pokemonChoiceList.length < state.maxPokemon) {
         state.pokemonChoiceList.push(action.payload);
+        toast.success(`"${action.payload.korean_name}"이(가) 추가되었습니다`, {
+          position: "top-center",
+          autoClose: 3000,
+        });
       } else {
-        fullPokemonListToast();
+        toast.error(
+          `포켓몬은 최대 ${state.maxPokemon}마리까지 선택 가능합니다.`,
+          {
+            position: "top-center",
+            autoClose: 3000,
+          }
+        );
         return;
       }
     },

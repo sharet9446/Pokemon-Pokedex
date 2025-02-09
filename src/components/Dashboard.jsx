@@ -4,17 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { removePokemon } from "../redux/pokemonSlice";
 
 function Dashboard() {
-  const { pokemonChoiceList } = useSelector((a) => a.pokemon);
+  const { pokemonChoiceList, maxPokemon } = useSelector((a) => a.pokemon);
   const dispatch = useDispatch();
   const pokemonNavigate = useNavigate();
-  const maxPokemonSlots = 6;
 
   return (
     <>
       <PokemonChoiceStyle>
         <PokemonChoiceTitle>나만의 포켓몬</PokemonChoiceTitle>
         <PokemonChoiceCardList>
-          {Array.from({ length: maxPokemonSlots }).map((_, index) => {
+          {Array.from({ length: maxPokemon }).map((_, index) => {
             const pokemon = pokemonChoiceList[index];
             return (
               <PokemonChoiceCard
