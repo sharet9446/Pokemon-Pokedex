@@ -6,8 +6,9 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import { useEffect } from "react";
+import MOCK_DATA from "../pages/MOCK_DATA";
 
-const PokemonDetail = ({ addPokemon, MOCK_DATA }) => {
+const PokemonDetail = ({ addPokemon }) => {
   const [searchParams] = useSearchParams();
   const pokemonSearchId = searchParams.get("id");
   const backNavigate = useNavigate();
@@ -64,7 +65,7 @@ const PokemonDetail = ({ addPokemon, MOCK_DATA }) => {
       <DetailKan>
         <DetailImg src={pokemon.img_url} alt={pokemon.korean_name} />
         <DetailButtonsDiv>
-          <DetailButton onClick={(e) => addPokemon(e, pokemon.id)}>
+          <DetailButton onClick={(e) => addPokemon(e, pokemon)}>
             추가
           </DetailButton>
           <DetailButton onClick={() => backNavigate("/dex")}>
@@ -145,7 +146,7 @@ const DetailName = styled.span`
 
 const DetailType = styled.p`
   font-size: 20px;
-  margin: 10px;
+  margin: 5.5px;
 `;
 
 const DetailDescription = styled.p`

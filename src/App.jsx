@@ -2,62 +2,75 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Dex from "./pages/Dex";
-import PokemonDetail from "./components/PokemonDetail";
 import { useState } from "react";
-import Dashboard from "./components/Dashboard";
-import MOCK_DATA from "./pages/MOCK_DATA";
+import { toast, ToastContainer } from "react-toastify";
 
 function App() {
   const [pokemonChoiceList, setPokemonChoiceList] = useState([]);
 
   const maxPokemon = 6;
 
-  const addPokemon = (e, id) => {
+  const addPokemon = (e, pokemon) => {
     e.stopPropagation();
-    const duplicationPokemon = pokemonChoiceList.find(
-      (pokemonChoice) => pokemonChoice.id === id
-    );
-    if (duplicationPokemon) {
-      alert(
-        `"${duplicationPokemon.korean_name}"은(는) 이미 선택된 포켓몬입니다.`
+
+    const fullPokemonListToast = () => {
+      toast.error("포켓몬은 최대 6마리까지 선택 가능합니다.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+    };
+
+    const duplicatePokemonList = () => {
+      toast.info(
+        `"${duplicationPokemon.korean_name}"은(는) 이미 선택된 포켓몬입니다.`,
+        {
+          position: "top-center",
+          autoClose: 3000,
+        }
       );
+    };
+
+    // 선택된 포켓몬 중복 확인
+    const duplicationPokemon = pokemonChoiceList.find(
+      (pokemonChoice) => pokemonChoice.id === pokemon.id
+    );
+
+    if (duplicationPokemon) {
+      duplicatePokemonList();
       return;
     }
-    MOCK_DATA.map((list) => {
-      if (list.id === id) {
-        if (pokemonChoiceList.length < maxPokemon) {
-          setPokemonChoiceList([
-            ...pokemonChoiceList,
-            { ...list, uuid: crypto.randomUUID() },
-          ]);
-        } else {
-          alert("모든 포켓몬이 이미 선택되었습니다.");
-          return;
-        }
-      }
-    });
+    // 포켓몬 선택 리스트에 포켓몬 추가
+
+    if (pokemonChoiceList.length < maxPokemon) {
+      setPokemonChoiceList([...pokemonChoiceList, pokemon]);
+    } else {
+      fullPokemonListToast();
+      return;
+    }
+  };
+
+  const removePokemon = (e, id) => {
+    e.stopPropagation();
+    setPokemonChoiceList(
+      pokemonChoiceList.filter((pokemon) => pokemon.id !== id)
+    );
   };
 
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
+          path="/dex/*"
           element={
-            <Dashboard
+            <Dex
+              addPokemon={addPokemon}
+              removePokemon={removePokemon}
               pokemonChoiceList={pokemonChoiceList}
-              setPokemonChoiceList={setPokemonChoiceList}
             />
           }
-        >
-          <Route path="dex" element={<Dex addPokemon={addPokemon} />} />
-          <Route
-            path="pokemon-detail"
-            element={
-              <PokemonDetail addPokemon={addPokemon} MOCK_DATA={MOCK_DATA} />
-            }
-          />
-        </Route>
+        />
       </Routes>
     </BrowserRouter>
   );

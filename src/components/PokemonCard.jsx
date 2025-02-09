@@ -6,18 +6,21 @@ function PokemonCard({ addPokemon, mockData }) {
 
   return (
     <>
-      {mockData.map(({ img_url, korean_name, id }) => (
+      {mockData.map((pokemon) => (
         <PokemonCardFrame
-          key={id}
+          key={pokemon.korean_name}
           onClick={() => {
-            pokemonNavigate(`/pokemon-detail?id=${id}`);
+            pokemonNavigate({
+              pathname: "/dex/pokemon-detail",
+              search: `?id=${pokemon.id}`,
+            });
           }}
         >
-          <PokemonCardImg src={img_url} alt={korean_name} />
+          <PokemonCardImg src={pokemon.img_url} alt={pokemon.korean_name} />
           <div>
-            <strong>{korean_name}</strong>
-            <p>No. {String(id).padStart(3, 0)}</p>
-            <AddButton onClick={(e) => addPokemon(e, id)}>추가</AddButton>
+            <strong>{pokemon.korean_name}</strong>
+            <p>No. {String(pokemon.id).padStart(3, 0)}</p>
+            <AddButton onClick={(e) => addPokemon(e, pokemon)}>추가</AddButton>
           </div>
         </PokemonCardFrame>
       ))}
