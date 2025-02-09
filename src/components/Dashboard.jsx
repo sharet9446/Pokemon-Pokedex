@@ -20,9 +20,12 @@ function Dashboard() {
               <PokemonChoiceCard
                 key={pokemon ? pokemon.korean_name : index}
                 $justifyContent={pokemon ? "flex-end" : "center"}
-                $scale={pokemon && "scale(1.06)"}
                 onClick={() => {
-                  pokemon && pokemonNavigate(`?id=${pokemon.id}`);
+                  pokemon &&
+                    pokemonNavigate({
+                      pathname: "/dex/pokemon-detail",
+                      search: `?id=${pokemon.id}`,
+                    });
                 }}
               >
                 <PokemonChoiceCardImg
@@ -60,7 +63,7 @@ export default Dashboard;
 
 const PokemonChoiceStyle = styled.div`
   background-color: antiquewhite;
-  margin: 20px 25px;
+  margin: 22.5px 25px;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -96,7 +99,10 @@ const PokemonChoiceCard = styled.div`
   transition: transform 0.2s;
 
   &:hover {
-    transform: ${(props) => props.$scale};
+    transform: ${(props) =>
+      props.$justifyContent === "flex-end" && "scale(1.06)"};
+    cursor: ${(props) =>
+      props.$justifyContent === "flex-end" ? "pointer" : "default"};
   }
 `;
 

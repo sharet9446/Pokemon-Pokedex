@@ -11,7 +11,10 @@ function PokemonCard({ pokemon }) {
     <>
       <PokemonCardFrame
         onClick={() => {
-          pokemonNavigate(`pokemon-detail?id=${pokemon.id}`);
+          pokemonNavigate({
+            pathname: "/dex/pokemon-detail",
+            search: `?id=${pokemon.id}`,
+          });
         }}
       >
         <PokemonCardImg src={pokemon.img_url} alt={pokemon.korean_name} />
