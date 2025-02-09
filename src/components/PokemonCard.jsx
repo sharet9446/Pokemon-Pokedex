@@ -12,14 +12,17 @@ function PokemonCard({ pokemon }) {
     <>
       <PokemonCardFrame
         onClick={() => {
-          pokemonNavigate(`/pokemon-detail?id=${pokemon.id}`);
+          pokemonNavigate({
+            pathname: "/dex/pokemon-detail",
+            search: `?id=${pokemon.id}`,
+          });
         }}
       >
         <PokemonCardImg src={pokemon.img_url} alt={pokemon.korean_name} />
         <div>
           <strong>{pokemon.korean_name}</strong>
           <p>No. {String(pokemon.id).padStart(3, 0)}</p>
-          <AddButton onClick={(e) => addPokemon(e, pokemon.id)}>추가</AddButton>
+          <AddButton onClick={(e) => addPokemon(e, pokemon)}>추가</AddButton>
         </div>
       </PokemonCardFrame>
     </>

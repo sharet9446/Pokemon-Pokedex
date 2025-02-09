@@ -67,7 +67,7 @@ const PokemonDetail = () => {
       <DetailKan>
         <DetailImg src={pokemon.img_url} alt={pokemon.korean_name} />
         <DetailButtonsDiv>
-          <DetailButton onClick={(e) => addPokemon(e, pokemon.id)}>
+          <DetailButton onClick={(e) => addPokemon(e, pokemon)}>
             추가
           </DetailButton>
           <DetailButton onClick={() => backNavigate("/dex")}>
@@ -150,7 +150,7 @@ const DetailName = styled.span`
 
 const DetailType = styled.p`
   font-size: 20px;
-  margin: 10px;
+  margin: 5.5px;
 `;
 
 const DetailDescription = styled.p`

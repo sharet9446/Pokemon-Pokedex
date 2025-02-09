@@ -1,9 +1,17 @@
+import { Route, Routes } from "react-router-dom";
+import Dashboard from "../components/Dashboard";
 import PokemonList from "../components/PokemonList";
+import PokemonDetail from "../components/PokemonDetail";
 
 function Dex() {
   return (
     <>
-      <PokemonList />
+      <Routes>
+        <Route element={<Dashboard />}>
+          <Route path="/" element={<PokemonList />} />
+          <Route path="pokemon-detail" element={<PokemonDetail />} />
+        </Route>
+      </Routes>
     </>
   );
 }

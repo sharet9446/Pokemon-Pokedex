@@ -20,13 +20,14 @@ function Dashboard() {
 
             return (
               <PokemonChoiceCard
-                key={pokemon ? pokemon.uuid : index}
+                key={pokemon ? pokemon.korean_name : index}
                 $justifyContent={pokemon ? "flex-end" : "center"}
-                $scale={pokemon && "scale(1.05)"}
-                $cursor={pokemon && "pointer"}
                 onClick={() => {
                   pokemon &&
-                    pokemonNavigate(`/pokemon-detail?id=${pokemon.id}`);
+                    pokemonNavigate({
+                      pathname: "/dex/pokemon-detail",
+                      search: `?id=${pokemon.id}`,
+                    });
                 }}
               >
                 <PokemonChoiceCardImg
@@ -39,7 +40,7 @@ function Dashboard() {
                 />
                 {pokemon && <strong>{pokemon.korean_name}</strong>}
                 {pokemon && (
-                  <DeleteButton onClick={(e) => removePokemon(e, pokemon.uuid)}>
+                  <DeleteButton onClick={(e) => removePokemon(e, pokemon.id)}>
                     삭제
                   </DeleteButton>
                 )}
@@ -59,7 +60,7 @@ export default Dashboard;
 
 const PokemonChoiceStyle = styled.div`
   background-color: antiquewhite;
-  margin: 25px;
+  margin: 22.5px 25px;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -92,11 +93,13 @@ const PokemonChoiceCard = styled.div`
   border: 2px dashed black;
   padding: 10px;
   border-radius: 8px;
-  cursor: ${(props) => props.$cursor};
   transition: transform 0.2s;
 
   &:hover {
-    transform: ${(props) => props.$scale};
+    transform: ${(props) =>
+      props.$justifyContent === "flex-end" && "scale(1.06)"};
+    cursor: ${(props) =>
+      props.$justifyContent === "flex-end" ? "pointer" : "default"};
   }
 `;
 

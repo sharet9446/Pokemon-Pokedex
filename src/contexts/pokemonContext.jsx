@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import MOCK_DATA from "./MOCK_DATA";
+import { toast } from "react-toastify";
 
 // PokemonContext 생성
 export const PokemonContext = createContext();
@@ -13,41 +13,50 @@ export function PokemonProvider({ children }) {
   const maxPokemon = 6;
 
   // 포켓몬 추가 함수
-  const addPokemon = (e, id) => {
+  const addPokemon = (e, pokemon) => {
     e.stopPropagation();
+
+    const fullPokemonListToast = () => {
+      toast.error("포켓몬은 최대 6마리까지 선택 가능합니다.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+    };
+
+    const duplicatePokemonList = () => {
+      toast.info(
+        `"${duplicationPokemon.korean_name}"은(는) 이미 선택된 포켓몬입니다.`,
+        {
+          position: "top-center",
+          autoClose: 3000,
+        }
+      );
+    };
 
     // 선택된 포켓몬 중복 확인
     const duplicationPokemon = pokemonChoiceList.find(
-      (pokemonChoice) => pokemonChoice.id === id
+      (pokemonChoice) => pokemonChoice.id === pokemon.id
     );
 
     if (duplicationPokemon) {
-      alert(
-        `"${duplicationPokemon.korean_name}"은(는) 이미 선택된 포켓몬입니다.`
-      );
+      duplicatePokemonList();
       return;
     }
     // 포켓몬 선택 리스트에 포켓몬 추가
-    MOCK_DATA.map((list) => {
-      if (list.id === id) {
-        if (pokemonChoiceList.length < maxPokemon) {
-          setPokemonChoiceList([
-            ...pokemonChoiceList,
-            { ...list, uuid: crypto.randomUUID() },
-          ]);
-        } else {
-          alert("모든 포켓몬이 이미 선택되었습니다.");
-          return;
-        }
-      }
-    });
+
+    if (pokemonChoiceList.length < maxPokemon) {
+      setPokemonChoiceList([...pokemonChoiceList, pokemon]);
+    } else {
+      fullPokemonListToast();
+      return;
+    }
   };
 
   // 포켓몬 제거 함수
   const removePokemon = (e, id) => {
     e.stopPropagation();
     setPokemonChoiceList(
-      pokemonChoiceList.filter((pokemon) => pokemon.uuid !== id)
+      pokemonChoiceList.filter((pokemon) => pokemon.id !== id)
     );
   };
 
