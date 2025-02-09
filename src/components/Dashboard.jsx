@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import { Outlet, useNavigate } from "react-router-dom";
 
-function Dashboard({ pokemonChoiceList, removePokemon }) {
-  const maxPokemonSlots = 6;
-
+function Dashboard({ pokemonChoiceList, removePokemon, maxPokemon }) {
   const pokemonNavigate = useNavigate();
 
   return (
@@ -11,7 +9,7 @@ function Dashboard({ pokemonChoiceList, removePokemon }) {
       <PokemonChoiceStyle>
         <PokemonChoiceTitle>나만의 포켓몬</PokemonChoiceTitle>
         <PokemonChoiceCardList>
-          {Array.from({ length: maxPokemonSlots }).map((_, index) => {
+          {Array.from({ length: maxPokemon }).map((_, index) => {
             const pokemon = pokemonChoiceList[index];
 
             return (

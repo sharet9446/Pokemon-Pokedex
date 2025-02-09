@@ -5,10 +5,10 @@ import Dex from "./pages/Dex";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 
-const maxPokemon = 6;
-
 function App() {
   const [pokemonChoiceList, setPokemonChoiceList] = useState([]);
+
+  const maxPokemon = 6;
 
   const addPokemon = (e, pokemon) => {
     e.stopPropagation();
@@ -28,7 +28,7 @@ function App() {
         autoClose: 3000,
       });
     } else {
-      toast.error("포켓몬은 최대 6마리까지 선택 가능합니다.", {
+      toast.error(`포켓몬은 최대 ${maxPokemon}마리까지 선택 가능합니다.`, {
         position: "top-center",
         autoClose: 3000,
       });
@@ -55,6 +55,7 @@ function App() {
               addPokemon={addPokemon}
               removePokemon={removePokemon}
               pokemonChoiceList={pokemonChoiceList}
+              maxPokemon={maxPokemon}
             />
           }
         />

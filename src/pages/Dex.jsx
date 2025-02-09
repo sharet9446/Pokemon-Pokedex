@@ -3,7 +3,7 @@ import PokemonList from "../components/PokemonList";
 import Dashboard from "../components/Dashboard";
 import PokemonDetail from "../components/PokemonDetail";
 
-function Dex({ addPokemon, removePokemon, pokemonChoiceList }) {
+function Dex({ addPokemon, removePokemon, pokemonChoiceList, maxPokemon }) {
   return (
     <>
       <Routes>
@@ -12,6 +12,7 @@ function Dex({ addPokemon, removePokemon, pokemonChoiceList }) {
             <Dashboard
               removePokemon={removePokemon}
               pokemonChoiceList={pokemonChoiceList}
+              maxPokemon={maxPokemon}
             />
           }
         >
