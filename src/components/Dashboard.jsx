@@ -18,12 +18,11 @@ function Dashboard() {
             const pokemon = pokemonChoiceList[index];
             return (
               <PokemonChoiceCard
-                key={pokemon ? pokemon.uuid : index}
+                key={pokemon ? pokemon.korean_name : index}
                 $justifyContent={pokemon ? "flex-end" : "center"}
                 $scale={pokemon && "scale(1.06)"}
                 onClick={() => {
-                  pokemon &&
-                    pokemonNavigate(`/pokemon-detail?id=${pokemon.id}`);
+                  pokemon && pokemonNavigate(`?id=${pokemon.id}`);
                 }}
               >
                 <PokemonChoiceCardImg
@@ -39,7 +38,7 @@ function Dashboard() {
                   <DeleteButton
                     onClick={(e) => {
                       e.stopPropagation();
-                      dispatch(removePokemon(pokemon.uuid));
+                      dispatch(removePokemon(pokemon.id));
                     }}
                   >
                     삭제
@@ -61,7 +60,7 @@ export default Dashboard;
 
 const PokemonChoiceStyle = styled.div`
   background-color: antiquewhite;
-  margin: 25px;
+  margin: 20px 25px;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);

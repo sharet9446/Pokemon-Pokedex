@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import MOCK_DATA from "../pages/MOCK_DATA";
+import { toast } from "react-toastify";
 
 const initialState = {
   pokemonChoiceList: [],
@@ -10,34 +10,43 @@ const pokemonSlice = createSlice({
   initialState,
   reducers: {
     addPokemon: (state, action) => {
+      const fullPokemonListToast = () => {
+        toast.error("포켓몬은 최대 6마리까지 선택 가능합니다.", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+      };
+
+      const duplicatePokemonList = () => {
+        toast.info(
+          `"${duplicationPokemon.korean_name}"은(는) 이미 선택된 포켓몬입니다.`,
+          {
+            position: "top-center",
+            autoClose: 3000,
+          }
+        );
+      };
+
       const duplicationPokemon = state.pokemonChoiceList.find(
-        (pokemonChoice) => pokemonChoice.id === action.payload
+        (pokemonChoice) => pokemonChoice.id === action.payload.id
       );
 
       if (duplicationPokemon) {
-        alert(
-          `"${duplicationPokemon.korean_name}"은(는) 이미 선택된 포켓몬입니다.`
-        );
+        duplicatePokemonList();
         return;
       }
-      MOCK_DATA.map((list) => {
-        if (list.id === action.payload) {
-          if (state.pokemonChoiceList.length < 6) {
-            state.pokemonChoiceList.push({
-              ...list,
-              uuid: crypto.randomUUID(),
-            });
-          } else {
-            alert("모든 포켓몬이 이미 선택되었습니다.");
-            return;
-          }
-        }
-      });
+
+      if (state.pokemonChoiceList.length < 6) {
+        state.pokemonChoiceList.push(action.payload);
+      } else {
+        fullPokemonListToast();
+        return;
+      }
     },
 
     removePokemon: (state, action) => {
       state.pokemonChoiceList = state.pokemonChoiceList.filter(
-        (pokemon) => pokemon.uuid !== action.payload
+        (pokemon) => pokemon.id !== action.payload
       );
     },
   },

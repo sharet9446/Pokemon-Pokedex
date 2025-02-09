@@ -64,13 +64,12 @@ const PokemonDetail = () => {
           </>
         )}
       </DetailNavDiv>
-
       <DetailKan>
         <DetailImg src={pokemon.img_url} alt={pokemon.korean_name} />
         <DetailButtonsDiv>
           <DetailButton
             onClick={() => {
-              dispatch(addPokemon(pokemon.id));
+              dispatch(addPokemon(pokemon));
             }}
           >
             추가
@@ -155,7 +154,7 @@ const DetailName = styled.span`
 
 const DetailType = styled.p`
   font-size: 20px;
-  margin: 10px;
+  margin: 5.5px;
 `;
 
 const DetailDescription = styled.p`
