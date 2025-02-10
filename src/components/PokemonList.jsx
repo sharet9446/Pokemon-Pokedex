@@ -2,13 +2,14 @@ import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 import MOCK_DATA from "../contexts/MOCK_DATA";
 
+// PokemonList 컴포넌트 정의
 function PokemonList() {
   return (
-    <PokemonListMain>
+    <PokemonListContainer>
       {MOCK_DATA.map((pokemon) => (
         <PokemonCard key={pokemon.id} pokemon={pokemon} />
       ))}
-    </PokemonListMain>
+    </PokemonListContainer>
   );
 }
 
@@ -16,7 +17,8 @@ export default PokemonList;
 
 // ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
 
-const PokemonListMain = styled.div`
+// 포켓몬 리스트 컨테이너 스타일 정의
+const PokemonListContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

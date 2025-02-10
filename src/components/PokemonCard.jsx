@@ -3,16 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { PokemonContext } from "../contexts/PokemonContext";
 
+// PokemonCard 컴포넌트 정의
 function PokemonCard({ pokemon }) {
   const { addPokemon } = useContext(PokemonContext);
 
-  const pokemonNavigate = useNavigate();
+  // useNavigate 훅 사용
+  const navigate = useNavigate();
 
   return (
     <>
       <PokemonCardFrame
         onClick={() => {
-          pokemonNavigate({
+          // 포켓몬 상세 페이지로 이동
+          navigate({
             pathname: "/dex/pokemon-detail",
             search: `?id=${pokemon.id}`,
           });
@@ -21,7 +24,8 @@ function PokemonCard({ pokemon }) {
         <PokemonCardImg src={pokemon.img_url} alt={pokemon.korean_name} />
         <div>
           <strong>{pokemon.korean_name}</strong>
-          <p>No. {String(pokemon.id).padStart(3, 0)}</p>
+          <p>No. {String(pokemon.id).padStart(3, "0")}</p>
+          {/* 포켓몬 추가 버튼 */}
           <AddButton onClick={(e) => addPokemon(e, pokemon)}>추가</AddButton>
         </div>
       </PokemonCardFrame>
@@ -33,6 +37,7 @@ export default PokemonCard;
 
 // ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
 
+// 포켓몬 카드 프레임 스타일 정의
 const PokemonCardFrame = styled.div`
   display: flex;
   flex-direction: column;
@@ -50,12 +55,14 @@ const PokemonCardFrame = styled.div`
   }
 `;
 
+// 포켓몬 카드 이미지 스타일 정의
 const PokemonCardImg = styled.img`
   width: 150px;
   height: 150px;
   margin-bottom: 10px;
 `;
 
+// 추가 버튼 스타일 정의
 const AddButton = styled.button`
   background-color: #ff6347;
   color: white;
