@@ -3,7 +3,13 @@ import PokemonList from "../components/PokemonList";
 import Dashboard from "../components/Dashboard";
 import PokemonDetail from "../components/PokemonDetail";
 
-function Dex({ addPokemon, removePokemon, pokemonChoiceList, maxPokemon }) {
+// Dex 컴포넌트 정의
+function Dex({
+  addPokemon,
+  removePokemon,
+  selectedPokemonList,
+  maxPokemonCount,
+}) {
   return (
     <>
       <Routes>
@@ -11,8 +17,8 @@ function Dex({ addPokemon, removePokemon, pokemonChoiceList, maxPokemon }) {
           element={
             <Dashboard
               removePokemon={removePokemon}
-              pokemonChoiceList={pokemonChoiceList}
-              maxPokemon={maxPokemon}
+              selectedPokemonList={selectedPokemonList}
+              maxPokemonCount={maxPokemonCount}
             />
           }
         >
