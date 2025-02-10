@@ -10,7 +10,7 @@ export function PokemonProvider({ children }) {
   const [selectedPokemonList, setSelectedPokemonList] = useState([]);
 
   // 최대 선택 가능한 포켓몬 수
-  const maxPokemonCount = 6;
+  const MAXPOKEMONCOUNT = 6;
 
   // 포켓몬 추가 함수
   const addPokemon = (e, pokemon) => {
@@ -26,14 +26,14 @@ export function PokemonProvider({ children }) {
     }
 
     // 최대 선택 가능한 포켓몬 수를 초과하지 않는지 확인
-    if (selectedPokemonList.length < maxPokemonCount) {
+    if (selectedPokemonList.length < MAXPOKEMONCOUNT) {
       setSelectedPokemonList([...selectedPokemonList, pokemon]);
       toast.success(`"${pokemon.korean_name}"이(가) 추가되었습니다.`, {
         position: "top-center",
         autoClose: 3000,
       });
     } else {
-      toast.error(`포켓몬은 최대 ${maxPokemonCount}마리까지 선택 가능합니다.`, {
+      toast.error(`포켓몬은 최대 ${MAXPOKEMONCOUNT}마리까지 선택 가능합니다.`, {
         position: "top-center",
         autoClose: 3000,
       });
@@ -54,7 +54,7 @@ export function PokemonProvider({ children }) {
     <PokemonContext.Provider
       value={{
         selectedPokemonList,
-        maxPokemonCount,
+        MAXPOKEMONCOUNT,
         addPokemon,
         removePokemon,
       }}
