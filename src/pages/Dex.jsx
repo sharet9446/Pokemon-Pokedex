@@ -8,7 +8,7 @@ function Dex({
   addPokemon,
   removePokemon,
   selectedPokemonList,
-  maxPokemonCount,
+  MAXPOKEMONCOUNT,
 }) {
   return (
     <>
@@ -18,7 +18,7 @@ function Dex({
             <Dashboard
               removePokemon={removePokemon}
               selectedPokemonList={selectedPokemonList}
-              maxPokemonCount={maxPokemonCount}
+              MAXPOKEMONCOUNT={MAXPOKEMONCOUNT}
             />
           }
         >
