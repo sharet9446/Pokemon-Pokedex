@@ -10,20 +10,22 @@ import { useDispatch } from "react-redux";
 import { addPokemon } from "../redux/pokemonSlice";
 import { useEffect } from "react";
 
+// PokemonDetail 컴포넌트 정의
 const PokemonDetail = () => {
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
-  const pokemonSearchId = searchParams.get("id");
-  const backNavigate = useNavigate();
+  const pokemonId = searchParams.get("id");
+  const navigate = useNavigate();
   const location = useLocation();
 
+  // 선택된 포켓몬 데이터 찾기
   const pokemon =
     MOCK_DATA.find(
       (pokemon) =>
-        pokemon.id === Number(pokemonSearchId) ||
-        pokemon.korean_name === pokemonSearchId
+        pokemon.id === Number(pokemonId) || pokemon.korean_name === pokemonId
     ) || null;
 
+  // 포켓몬 이미지 미리 로드
   useEffect(() => {
     if (pokemon?.img_url) {
       const img = new Image();
@@ -31,13 +33,12 @@ const PokemonDetail = () => {
     }
   }, [location.pathname, pokemon]);
 
+  // 포켓몬이 없을 경우
   if (!pokemon) {
     return (
       <DetailPage>
         <DetailKan>포켓몬 정보를 불러올 수 없습니다.</DetailKan>
-        <DetailButton onClick={() => backNavigate("/dex")}>
-          돌아가기
-        </DetailButton>
+        <DetailButton onClick={() => navigate("/dex")}>돌아가기</DetailButton>
       </DetailPage>
     );
   }
@@ -64,6 +65,7 @@ const PokemonDetail = () => {
           </>
         )}
       </DetailNavDiv>
+
       <DetailKan>
         <DetailImg src={pokemon.img_url} alt={pokemon.korean_name} />
         <DetailButtonsDiv>
@@ -74,9 +76,7 @@ const PokemonDetail = () => {
           >
             추가
           </DetailButton>
-          <DetailButton onClick={() => backNavigate("/dex")}>
-            돌아가기
-          </DetailButton>
+          <DetailButton onClick={() => navigate("/dex")}>돌아가기</DetailButton>
         </DetailButtonsDiv>
         <h2>
           <DetailNumber>
@@ -95,6 +95,7 @@ export default PokemonDetail;
 
 // ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
 
+// 상세 페이지 스타일 정의
 const DetailPage = styled.div`
   display: flex;
   flex-direction: column;
@@ -102,6 +103,7 @@ const DetailPage = styled.div`
   align-items: center;
 `;
 
+// 네비게이션 스타일 정의
 const DetailNavDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -110,6 +112,7 @@ const DetailNavDiv = styled.div`
   margin-top: 15px;
 `;
 
+// 네비게이션 링크 스타일 정의
 const DetailNavLink = styled(Link)`
   text-decoration: none;
   font-size: 16px;
@@ -121,12 +124,14 @@ const DetailNavLink = styled(Link)`
   }
 `;
 
+// 네비게이션 정보 스타일 정의
 const DetailNavInfo = styled.span`
   font-size: 14px;
   color: gray;
   font-weight: bold;
 `;
 
+// 포켓몬 상세 정보 스타일 정의
 const DetailKan = styled.div`
   display: flex;
   text-align: center;
@@ -135,37 +140,44 @@ const DetailKan = styled.div`
   justify-content: center;
 `;
 
+// 포켓몬 이미지 스타일 정의
 const DetailImg = styled.img`
   width: 200px;
   height: 200px;
 `;
 
+// 포켓몬 번호 스타일 정의
 const DetailNumber = styled.span`
   font-size: 14px;
   color: gray;
   margin-right: 8px;
 `;
 
+// 포켓몬 이름 스타일 정의
 const DetailName = styled.span`
   font-size: 24px;
   font-weight: bold;
   color: red;
 `;
 
+// 포켓몬 타입 스타일 정의
 const DetailType = styled.p`
   font-size: 20px;
   margin: 5.5px;
 `;
 
+// 포켓몬 설명 스타일 정의
 const DetailDescription = styled.p`
   font-size: 18px;
 `;
 
+// 버튼 컨테이너 스타일 정의
 const DetailButtonsDiv = styled.div`
   display: flex;
   gap: 20px;
 `;
 
+// 버튼 스타일 정의
 const DetailButton = styled.button`
   text-decoration: none;
   background-color: #ff6347;

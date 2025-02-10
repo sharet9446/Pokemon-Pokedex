@@ -3,6 +3,7 @@ import Dashboard from "../components/Dashboard";
 import PokemonDetail from "../components/PokemonDetail";
 import PokemonList from "../components/PokemonList";
 
+// Dex 컴포넌트 정의
 function Dex() {
   return (
     <>

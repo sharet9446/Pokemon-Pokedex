@@ -1,16 +1,17 @@
-import styled from "styled-components";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
+// Home 컴포넌트 정의
 function Home() {
   return (
-    <HomeDivOut>
-      <Container>
-        <PokemonLogo src="../image/pokemon_logo.svg" alt="Pokemon Logo" />
-        <HomeDivIn>
-          <HomeLink to="/dex">포켓몬 도감 시작하기</HomeLink>
-        </HomeDivIn>
-      </Container>
-    </HomeDivOut>
+    <HomeWrapper>
+      <ContentContainer>
+        <Logo src="../image/pokemon_logo.svg" alt="Pokemon Logo" />
+        <LinkWrapper>
+          <StyledLink to="/dex">포켓몬 도감 시작하기</StyledLink>
+        </LinkWrapper>
+      </ContentContainer>
+    </HomeWrapper>
   );
 }
 
@@ -18,7 +19,8 @@ export default Home;
 
 // ----------------------------------------------  styled-components 시작 ---------------------------------------------- //
 
-const HomeDivOut = styled.div`
+// 외부 래퍼 스타일 정의
+const HomeWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,14 +30,16 @@ const HomeDivOut = styled.div`
   background-color: wheat;
 `;
 
-const Container = styled.div`
+// 컨텐츠 컨테이너 스타일 정의
+const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 40px;
 `;
 
-const HomeDivIn = styled.div`
+// 내부 링크 래퍼 스타일 정의
+const LinkWrapper = styled.div`
   border-radius: 100px;
   padding: 5px 5px;
   background: linear-gradient(145deg, #f3e2c7, #d6bea5);
@@ -55,13 +59,15 @@ const HomeDivIn = styled.div`
   }
 `;
 
-const PokemonLogo = styled.img`
+// 포켓몬 로고 스타일 정의
+const Logo = styled.img`
   min-width: 500px;
   width: 0%;
   height: auto;
 `;
 
-const HomeLink = styled(Link)`
+// 스타일된 링크 정의
+const StyledLink = styled(Link)`
   display: inline-block;
   text-decoration: none;
   padding: 16px 50px;

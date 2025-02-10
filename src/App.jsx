@@ -10,6 +10,7 @@ function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
+        {/* ToastContainer로 알림 표시 */}
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
