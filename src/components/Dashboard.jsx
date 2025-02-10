@@ -16,7 +16,7 @@ function Dashboard() {
       <PokemonChoiceStyle>
         <PokemonChoiceTitle>나만의 포켓몬</PokemonChoiceTitle>
         <PokemonChoiceCardList>
-          {/* Array.from() 메서드를 사용하여 maxPokemonCount만큼의 길이를 가진 배열을 생성하고, map() 메서드를 사용하여 배열의 길이만큼 반복하며 PokemonChoiceCard 컴포넌트를 렌더링합니다. */}
+          {/* Array.from() 메서드를 사용하여 MAXPOKEMONCOUNT만큼의 길이를 가진 배열을 생성하고, map() 메서드를 사용하여 배열의 길이만큼 반복하며 PokemonChoiceCard 컴포넌트를 렌더링합니다. */}
           {Array.from({ length: MAXPOKEMONCOUNT }).map((_, index) => {
             const pokemon = selectedPokemonList[index];
             return (
