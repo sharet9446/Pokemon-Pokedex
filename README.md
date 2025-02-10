@@ -63,7 +63,7 @@ npm run dev   # 또는 yarn dev
 
 ---
 
-## 📂 **프로젝트 폴더 구조 (Redux-Toolkit + Context API 적용)**
+## 📂 **프로젝트 폴더 구조 (Redux-Toolkit 기준)**
 
 ```plaintext
 Pokemon-Pokedex
