@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-// Home 컴포넌트 정의
 function Home() {
   return (
     <HomeWrapper>
       <ContentContainer>
-        <Logo src="../image/pokemon_logo.svg" alt="Pokemon Logo" />
+        <Logo src="../public/images/pokemon_logo.svg" alt="Pokemon Logo" />
         <LinkWrapper>
           <StyledLink to="/dex">포켓몬 도감 시작하기</StyledLink>
         </LinkWrapper>
