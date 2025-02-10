@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 // 초기 상태 정의
 const initialState = {
   selectedPokemonList: [],
-  maxPokemonCount: 6,
+  MAXPOKEMONCOUNT: 6,
 };
 
 // pokemonSlice 생성
@@ -27,7 +27,7 @@ const pokemonSlice = createSlice({
       }
 
       // 최대 선택 가능한 포켓몬 수를 초과하지 않는지 확인
-      if (state.selectedPokemonList.length < state.maxPokemonCount) {
+      if (state.selectedPokemonList.length < state.MAXPOKEMONCOUNT) {
         state.selectedPokemonList.push(action.payload);
         toast.success(`"${action.payload.korean_name}"이(가) 추가되었습니다`, {
           position: "top-center",
@@ -35,7 +35,7 @@ const pokemonSlice = createSlice({
         });
       } else {
         toast.error(
-          `포켓몬은 최대 ${state.maxPokemonCount}마리까지 선택 가능합니다.`,
+          `포켓몬은 최대 ${state.MAXPOKEMONCOUNT}마리까지 선택 가능합니다.`,
           {
             position: "top-center",
             autoClose: 3000,
