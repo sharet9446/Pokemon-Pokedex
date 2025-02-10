@@ -5,7 +5,7 @@ function Home() {
   return (
     <HomeWrapper>
       <ContentContainer>
-        <Logo src="../public/images/pokemon_logo.svg" alt="Pokemon Logo" />
+        <Logo src={`/images/pokemon_logo.svg`} alt="Pokemon Logo" />
         <LinkWrapper>
           <StyledLink to="/dex">포켓몬 도감 시작하기</StyledLink>
         </LinkWrapper>
